@@ -1,16 +1,44 @@
-alias Color = String
-
 export type Direction = Forward | Backward | Bidirectional | NoneDirection
 
 export type PortPosition
-  = North
-  | NorthEast
+  = Central
   | East
+  | North
+  | NorthEast
+  | NorthWest
+  | PortGap
+  | South
   | SouthEast
   | SouthWest
-  | NorthWest
-  | Central
-  | PortGap
+
+export portPositionToString = where {
+  South =>
+    "s"
+
+  North =>
+    "n"
+
+  NorthEast =>
+    "ne"
+
+  East =>
+    "e"
+
+  SouthEast =>
+    "se"
+
+  SouthWest =>
+    "sw"
+
+  NorthWest =>
+    "nw"
+
+  Central =>
+    "c"
+
+  PortGap =>
+    "-"
+}
 
 export type EdgeStyle
   = EdgeStyleDashed
@@ -19,6 +47,39 @@ export type EdgeStyle
   | EdgeStyleInvis
   | EdgeStyleBold
   | EdgeStyleTapered
+
+export styleToString = where {
+  EdgeStyleDashed =>
+    "dashed"
+
+  EdgeStyleDotted =>
+    "dotted"
+
+  EdgeStyleSolid =>
+    "solid"
+
+  EdgeStyleInvis =>
+    "invis"
+
+  EdgeStyleBold =>
+    "bold"
+
+  EdgeStyleTapered =>
+    "tapered"
+}
+export stringToStyle = (x) => if (x == "dashed") {
+  EdgeStyleDashed
+} else if (x == "dotted") {
+  EdgeStyleDotted
+} else if (x == "solid") {
+  EdgeStyleSolid
+} else if (x == "invis") {
+  EdgeStyleInvis
+} else if (x == "bold") {
+  EdgeStyleBold
+} else {
+  EdgeStyleTapered
+}
 
 export type ArrowType
   = ArrowNormal
@@ -35,80 +96,380 @@ export type ArrowType
   | ArrowOdiamond
   | ArrowEdiamond
   | ArrowCrow
-  | ArrowBox
   | ArrowObox
   | ArrowOpen
   | ArrowHalfopen
   | ArrowVee
+  | ArrowBox
+
+export arrowToString = where {
+  ArrowNormal =>
+    "normal"
+
+  ArrowInv =>
+    "inv"
+
+  ArrowDot =>
+    "dot"
+
+  ArrowInvdot =>
+    "invdot"
+
+  ArrowOdot =>
+    "odot"
+
+  ArrowInvodot =>
+    "invodot"
+
+  ArrowNone =>
+    "none"
+
+  ArrowTee =>
+    "tee"
+
+  ArrowEmpty =>
+    "empty"
+
+  ArrowInvempty =>
+    "invempty"
+
+  ArrowDiamond =>
+    "diamond"
+
+  ArrowOdiamond =>
+    "odiamond"
+
+  ArrowEdiamond =>
+    "ediamond"
+
+  ArrowCrow =>
+    "crow"
+
+  ArrowObox =>
+    "obox"
+
+  ArrowOpen =>
+    "open"
+
+  ArrowHalfopen =>
+    "halfopen"
+
+  ArrowVee =>
+    "vee"
+
+  ArrowBox =>
+    "box"
+}
+export stringToArrow = (x) => if (x == "box") {
+  ArrowBox
+} else if (x == "inv") {
+  ArrowInv
+} else if (x == "dot") {
+  ArrowDot
+} else if (x == "invdot") {
+  ArrowInvdot
+} else if (x == "odot") {
+  ArrowOdot
+} else if (x == "invodot") {
+  ArrowInvodot
+} else if (x == "none") {
+  ArrowNone
+} else if (x == "tee") {
+  ArrowTee
+} else if (x == "empty") {
+  ArrowEmpty
+} else if (x == "invempty") {
+  ArrowInvempty
+} else if (x == "diamond") {
+  ArrowDiamond
+} else if (x == "odiamond") {
+  ArrowOdiamond
+} else if (x == "ediamond") {
+  ArrowEdiamond
+} else if (x == "crow") {
+  ArrowCrow
+} else if (x == "obox") {
+  ArrowObox
+} else if (x == "open") {
+  ArrowOpen
+} else if (x == "halfopen") {
+  ArrowHalfopen
+} else if (x == "vee") {
+  ArrowVee
+} else {
+  ArrowNormal
+}
 
 export type EdgeAttribute
-  = EA_arrowhead(ArrowType)
-  | EA_arrowsize(Float)
-  | EA_arrowtail(ArrowType)
-  | EA_class(String)
-  | EA_color(Color)
-  | EA_colorscheme(String)
-  | EA_comment(String)
-  | EA_constraint(Boolean)
-  | EA_decorate(Boolean)
-  | EA_dir(Direction)
-  | EA_edgehref(String)
-  | EA_edgetarget(String)
-  | EA_edgetooltip(String)
-  | EA_edgeURL(String)
-  | EA_fillcolor(Color)
-  | EA_fontcolor(Color)
-  | EA_fontname(String)
-  | EA_fontsize(Float)
-  | EA_head_lp(String)
-  | EA_headclip(Boolean)
-  | EA_headhref(String)
-  | EA_headlabel(String)
-  | EA_headport(PortPosition)
-  | EA_headtarget(String)
-  | EA_headtooltip(String)
-  | EA_headURL(String)
-  | EA_href(String)
-  | EA_id(String)
-  | EA_label(String)
-  | EA_labelangle(Float)
-  | EA_labeldistance(Float)
-  | EA_labelfloat(Boolean)
-  | EA_labelfontcolor(Color)
-  | EA_labelfontname(String)
-  | EA_labelfontsize(Float)
-  | EA_labelhref(String)
-  | EA_labeltarget(String)
-  | EA_labeltooltip(String)
-  | EA_labelURL(String)
-  | EA_layer(String)
-  | EA_len(Float)
-  | EA_lhead(String)
-  | EA_lp(String)
-  | EA_ltail(String)
-  | EA_minlen(Integer)
-  | EA_nojustify(Boolean)
-  | EA_penwidth(Integer)
-  | EA_pos(String)
-  | EA_radius(Float)
-  | EA_samehead(String)
-  | EA_sametail(String)
-  | EA_showboxes(Integer)
-  | EA_style(EdgeStyle)
-  | EA_tail_lp(String)
-  | EA_tailclip(Boolean)
-  | EA_tailhref(String)
-  | EA_taillabel(String)
-  | EA_tailport(PortPosition)
-  | EA_tailtarget(String)
-  | EA_tailtooltip(String)
-  | EA_tailURL(String)
-  | EA_target(String)
-  | EA_tooltip(String)
-  | EA_URL(String)
-  | EA_weight(Float)
-  | EA_xlabel(String)
-  | EA_xlp(String)
+  = Arrowhead(ArrowType)
+  | Arrowsize(Float)
+  | Arrowtail(ArrowType)
+  | Class(String)
+  | Color(String)
+  | Colorscheme(String)
+  | Comment(String)
+  | Constraint(Boolean)
+  | Decorate(Boolean)
+  | Dir(Direction)
+  | Edgehref(String)
+  | Edgetarget(String)
+  | Edgetooltip(String)
+  | EdgeURL(String)
+  | Fillcolor(String)
+  | Fontcolor(String)
+  | Fontname(String)
+  | Fontsize(Float)
+  | HeadLp(String)
+  | Headclip(Boolean)
+  | Headhref(String)
+  | Headlabel(String)
+  | Headport(PortPosition)
+  | Headtarget(String)
+  | Headtooltip(String)
+  | HeadURL(String)
+  | Href(String)
+  | Id(String)
+  | Label(String)
+  | Labelangle(Float)
+  | Labeldistance(Float)
+  | Labelfloat(Boolean)
+  | Labelfontcolor(String)
+  | Labelfontname(String)
+  | Labelfontsize(Float)
+  | Labelhref(String)
+  | Labeltarget(String)
+  | Labeltooltip(String)
+  | LabelURL(String)
+  | Layer(String)
+  | Len(Float)
+  | Lhead(String)
+  | Lp(String)
+  | Ltail(String)
+  | Minlen(Integer)
+  | Nojustify(Boolean)
+  | Penwidth(Integer)
+  | Pos(String)
+  | Radius(Float)
+  | Samehead(String)
+  | Sametail(String)
+  | Showboxes(Integer)
+  | Style(EdgeStyle)
+  | Tail_lp(String)
+  | Tailclip(Boolean)
+  | Tailhref(String)
+  | Taillabel(String)
+  | Tailport(PortPosition)
+  | Tailtarget(String)
+  | Tailtooltip(String)
+  | TailURL(String)
+  | Target(String)
+  | Tooltip(String)
+  | URL(String)
+  | Weight(Float)
+  | Xlabel(String)
+  | Xlp(String)
 
+export attributeToString = where {
+  Arrowhead(x) =>
+    `arrowhead = ${arrowToString(x)};`
+
+  Arrowsize(x) =>
+    `arrowsize = ${show(x)};`
+
+  Arrowtail(x) =>
+    `arrowtail = ${arrowToString(x)};`
+
+  Class(x) =>
+    `class = ${show(x)};`
+
+  Color(x) =>
+    `color = ${show(x)};`
+
+  Colorscheme(x) =>
+    `colorscheme = ${show(x)};`
+
+  Comment(x) =>
+    `comment = ${show(x)};`
+
+  Constraint(x) =>
+    `constraint = ${show(x)};`
+
+  Decorate(x) =>
+    `decorate = ${show(x)};`
+
+  Dir(x) =>
+    `dir = ${show(x)};`
+
+  Edgehref(x) =>
+    `edgehref = ${show(x)};`
+
+  Edgetarget(x) =>
+    `edgetarget = ${show(x)};`
+
+  Edgetooltip(x) =>
+    `edgetooltip = ${show(x)};`
+
+  EdgeURL(x) =>
+    `edgeURL = ${show(x)};`
+
+  Fillcolor(x) =>
+    `fillcolor = ${show(x)};`
+
+  Fontcolor(x) =>
+    `fontcolor = ${show(x)};`
+
+  Fontname(x) =>
+    `fontname = ${show(x)};`
+
+  Fontsize(x) =>
+    `fontsize = ${show(x)};`
+
+  HeadLp(x) =>
+    `head_lp = ${show(x)};`
+
+  Headclip(x) =>
+    `headclip = ${show(x)};`
+
+  Headhref(x) =>
+    `headhref = ${show(x)};`
+
+  Headlabel(x) =>
+    `headlabel = ${show(x)};`
+
+  Headport(x) =>
+    `headport = ${portPositionToString(x)};`
+
+  Headtarget(x) =>
+    `headtarget = ${show(x)};`
+
+  Headtooltip(x) =>
+    `headtooltip = ${show(x)};`
+
+  HeadURL(x) =>
+    `headURL = ${show(x)};`
+
+  Href(x) =>
+    `href = ${show(x)};`
+
+  Id(x) =>
+    `id = ${show(x)};`
+
+  Label(x) =>
+    `label = ${show(x)};`
+
+  Labelangle(x) =>
+    `labelangle = ${show(x)};`
+
+  Labeldistance(x) =>
+    `labeldistance = ${show(x)};`
+
+  Labelfloat(x) =>
+    `labelfloat = ${show(x)};`
+
+  Labelfontcolor(x) =>
+    `labelfontcolor = ${show(x)};`
+
+  Labelfontname(x) =>
+    `labelfontname = ${show(x)};`
+
+  Labelfontsize(x) =>
+    `labelfontsize = ${show(x)};`
+
+  Labelhref(x) =>
+    `labelhref = ${show(x)};`
+
+  Labeltarget(x) =>
+    `labeltarget = ${show(x)};`
+
+  Labeltooltip(x) =>
+    `labeltooltip = ${show(x)};`
+
+  LabelURL(x) =>
+    `labelURL = ${show(x)};`
+
+  Layer(x) =>
+    `layer = ${show(x)};`
+
+  Len(x) =>
+    `len = ${show(x)};`
+
+  Lhead(x) =>
+    `lhead = ${show(x)};`
+
+  Lp(x) =>
+    `lp = ${show(x)};`
+
+  Ltail(x) =>
+    `ltail = ${show(x)};`
+
+  Minlen(x) =>
+    `minlen = ${show(x)};`
+
+  Nojustify(x) =>
+    `nojustify = ${show(x)};`
+
+  Penwidth(x) =>
+    `penwidth = ${show(x)};`
+
+  Pos(x) =>
+    `pos = ${show(x)};`
+
+  Radius(x) =>
+    `radius = ${show(x)};`
+
+  Samehead(x) =>
+    `samehead = ${show(x)};`
+
+  Sametail(x) =>
+    `sametail = ${show(x)};`
+
+  Showboxes(x) =>
+    `showboxes = ${show(x)};`
+
+  Style(x) =>
+    `style = ${show(x)};`
+
+  Tail_lp(x) =>
+    `tail_lp = ${show(x)};`
+
+  Tailclip(x) =>
+    `tailclip = ${show(x)};`
+
+  Tailhref(x) =>
+    `tailhref = ${show(x)};`
+
+  Taillabel(x) =>
+    `taillabel = ${show(x)};`
+
+  Tailport(x) =>
+    `tailport = ${portPositionToString(x)};`
+
+  Tailtarget(x) =>
+    `tailtarget = ${show(x)};`
+
+  Tailtooltip(x) =>
+    `tailtooltip = ${show(x)};`
+
+  TailURL(x) =>
+    `tailURL = ${show(x)};`
+
+  Target(x) =>
+    `target = ${show(x)};`
+
+  Tooltip(x) =>
+    `tooltip = ${show(x)};`
+
+  URL(x) =>
+    `uRL = ${show(x)};`
+
+  Weight(x) =>
+    `weight = ${show(x)};`
+
+  Xlabel(x) =>
+    `xlabel = ${show(x)};`
+
+  Xlp(x) =>
+    `xlp = ${show(x)};`
+}
 
 export type Edge = Edge(List String, List EdgeAttribute) | GlobalEdge(List EdgeAttribute)

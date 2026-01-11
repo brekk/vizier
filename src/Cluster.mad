@@ -2,47 +2,199 @@ import type { Edge } from "@/Edge"
 import type { Rect } from "@/Geometry"
 import type { Node } from "@/Node"
 
+import List from "List"
+import { join } from "String"
+
+import { Rect } from "@/Geometry"
+import { renderNodes } from "@/Node"
+
 
 
 alias Color = String
 
 export type ClusterStyle = ClusterStyleFilled | ClusterStyleStriped | ClusterStyleRounded
 
+export styleLiteralToString = where {
+  ClusterStyleFilled =>
+    "filled"
+
+  ClusterStyleStriped =>
+    "striped"
+
+  ClusterStyleRounded =>
+    "rounded"
+}
+
+export stringToStyleLiteral = (x) => x == "filled"
+  ? ClusterStyleFilled
+  : x == "striped" ? ClusterStyleStriped : ClusterStyleRounded
+
 export alias Layer = String
 export type Justification = JustificationLeft | JustificationCenter | JustificationRight
 
+export justificationToString = where {
+  JustificationLeft =>
+    "left"
+
+  JustificationCenter =>
+    "center"
+
+  JustificationRight =>
+    "right"
+}
+
 export type ClusterAttribute
-  = CA_area(Float)
-  | CA_bb(Rect)
-  | CA_bgcolor(Color)
-  | CA_class(String)
-  | CA_cluster(Boolean)
-  | CA_color(Color)
-  | CA_colorscheme(String)
-  | CA_fillcolor(Color)
-  | CA_fontcolor(Color)
-  | CA_fontname(String)
-  | CA_fontsize(Float)
-  | CA_gradientangle(Integer)
-  | CA_href(String)
-  | CA_id(String)
-  | CA_K(Float)
-  | CA_label(String)
-  | CA_labeljust(Justification)
-  | CA_labelloc(String)
-  | CA_layer(String)
-  | CA_lheight(Float)
-  | CA_lp(String)
-  | CA_lwidth(Float)
-  | CA_margin(Float)
-  | CA_nojustify(Boolean)
-  | CA_pencolor(Color)
-  | CA_penwidth(Float)
-  | CA_peripheries(Integer)
-  | CA_sortv(Integer)
-  | CA_style(ClusterStyle)
-  | CA_target(String)
-  | CA_tooltip(String)
-  | CA_URL(String)
+  = Area(Float)
+  | Bb(Rect)
+  | Bgcolor(Color)
+  | Class(String)
+  | ClusterAttr(Boolean)
+  | Color(Color)
+  | Colorscheme(String)
+  | Fillcolor(Color)
+  | Fontcolor(Color)
+  | Fontname(String)
+  | Fontsize(Float)
+  | Gradientangle(Integer)
+  | Href(String)
+  | Id(String)
+  | K(Float)
+  | Label(String)
+  | Labeljust(Justification)
+  | Labelloc(String)
+  | Layer(String)
+  | Lheight(Float)
+  | Lp(String)
+  | Lwidth(Float)
+  | Margin(Float)
+  | Nojustify(Boolean)
+  | Pencolor(Color)
+  | Penwidth(Float)
+  | Peripheries(Integer)
+  | Sortv(Integer)
+  | Style(ClusterStyle)
+  | Target(String)
+  | Tooltip(String)
+  | URL(String)
+  | UnmatchedClusterAttribute
 
 export type Cluster = Cluster(String, List ClusterAttribute, List Node, List Edge)
+
+toString :: Integer -> Cluster -> String
+export toString = (i, c) => where(c) {
+  Cluster(label, attrs, nodes, edges) =>
+    `subgraph cluster_${show(i)} {
+  label = "${label}";
+  ${renderAttributes(attrs)}
+  ${renderNodes(nodes)}
+  ${renderEdges(edges)}
+}`
+}
+
+attributeToString :: ClusterAttribute -> String
+export attributeToString = where {
+  Area(f) =>
+    `area = ${show(f)};`
+
+  Bb(Rect(a, b, c, d)) =>
+    `bb = ${show(a)},${show(b)},${show(c)},${show(d)};`
+
+  Bgcolor(c) =>
+    `bgcolor = ${c};`
+
+  Class(c) =>
+    `class = ${c};`
+
+  ClusterAttr(yes) =>
+    `cluster = ${show(yes)};`
+
+  Color(s) =>
+    `color = ${s};`
+
+  Colorscheme(s) =>
+    `colorscheme = ${s};`
+
+  Fillcolor(s) =>
+    `fillcolor = ${s};`
+
+  Fontcolor(s) =>
+    `fontcolor = ${s};`
+
+  Fontname(s) =>
+    `fontname = ${s};`
+
+  Fontsize(f) =>
+    `fontsize = ${show(f)};`
+
+  Gradientangle(i) =>
+    `gradientangle = ${show(i)};`
+
+  Href(s) =>
+    `href = ${s};`
+
+  Id(s) =>
+    `id = ${s};`
+
+  K(f) =>
+    `K = ${show(f)};`
+
+  Label(s) =>
+    `label = ${s};`
+
+  Labeljust(j) =>
+    `labeljust = ${justificationToString(j)};`
+
+  Labelloc(s) =>
+    `labelloc = ${s};`
+
+  Layer(s) =>
+    `layer = ${s};`
+
+  Lheight(f) =>
+    `lheight = ${show(f)};`
+
+  Lp(s) =>
+    `lp = ${s};`
+
+  Lwidth(f) =>
+    `lwidth = ${show(f)};`
+
+  Margin(f) =>
+    `margin = ${show(f)};`
+
+  Nojustify(x) =>
+    `nojustify = ${show(x)};`
+
+  Pencolor(c) =>
+    `pencolor = ${c};`
+
+  Penwidth(f) =>
+    `penwidth = ${show(f)};`
+
+  Peripheries(i) =>
+    `peripheries = ${show(i)};`
+
+  Sortv(i) =>
+    `sortv = ${show(i)};`
+
+  Style(s) =>
+    `style = ${styleLiteralToString(s)};`
+
+  Target(s) =>
+    `target = ${s};`
+
+  Tooltip(s) =>
+    `tooltip = ${s};`
+
+  URL(s) =>
+    `url = ${s};`
+
+  UnmatchedClusterAttribute =>
+    `/* unmatched cluster attribute */`
+}
+
+renderAttributes :: List ClusterAttribute -> String
+export renderAttributes = pipe(
+  map(attributeToString),
+  join("\n"),
+)

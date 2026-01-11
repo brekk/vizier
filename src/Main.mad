@@ -1,17 +1,16 @@
 import IO from "IO"
 
 import { Cluster } from "@/Cluster"
+import Color from "@/Color"
 import { Edge } from "@/Edge"
-import { NA_shape, Node, ShapeDiamond, ShapeMdiamond, ShapeMsquare } from "@/Node"
+import { Node, Shape, ShapeDiamond, ShapeMdiamond, ShapeMsquare } from "@/Node"
 import { Vizier } from "@/Vizier"
 
 
 
 main = () => {
   // , Node("end", [NA_shape(ShapeMsquare)])]
-  nodes = [Node("yo", [NA_shape(ShapeDiamond)])]
-  // nodes = [Node("start", [NA_shape(ShapeMdiamond)])]
-  // nodes = []
+  nodes = [Node("start", [Shape(ShapeMdiamond)]), Node("end", [Shape(ShapeMsquare)])]
   clusters = [
     Cluster(
       "process #2",

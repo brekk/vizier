@@ -1,9 +1,9 @@
 import type { Rect } from "@/Geometry"
 
+import List from "List"
+import { join } from "String"
 
 
-alias Color = String
-alias Layer = String
 
 export type NodeStyle
   = NodeStyleDashed
@@ -16,6 +16,59 @@ export type NodeStyle
   | NodeStyleWedged
   | NodeStyleDiagonals
   | NodeStyleRounded
+
+export styleLiteralToString = where {
+  NodeStyleDashed =>
+    "dashed"
+
+  NodeStyleDotted =>
+    "dotted"
+
+  NodeStyleSolid =>
+    "solid"
+
+  NodeStyleInvis =>
+    "invis"
+
+  NodeStyleBold =>
+    "bold"
+
+  NodeStyleFilled =>
+    "filled"
+
+  NodeStyleStriped =>
+    "striped"
+
+  NodeStyleWedged =>
+    "wedged"
+
+  NodeStyleDiagonals =>
+    "diagonals"
+
+  NodeStyleRounded =>
+    "rounded"
+}
+export stringToStyleLiteral = (x) => if (x == "dashed") {
+  NodeStyleDashed
+} else if (x == "dotted") {
+  NodeStyleDotted
+} else if (x == "solid") {
+  NodeStyleSolid
+} else if (x == "invis") {
+  NodeStyleInvis
+} else if (x == "bold") {
+  NodeStyleBold
+} else if (x == "filled") {
+  NodeStyleFilled
+} else if (x == "striped") {
+  NodeStyleStriped
+} else if (x == "wedged") {
+  NodeStyleWedged
+} else if (x == "diagonals") {
+  NodeStyleDiagonals
+} else {
+  NodeStyleRounded
+}
 
 
 export type NodeShape
@@ -79,6 +132,305 @@ export type NodeShape
   | ShapeLarrow
   | ShapeLpromoter
 
+export shapeToString = where {
+  ShapeBox =>
+    "box"
+
+  ShapePolygon =>
+    "polygon"
+
+  ShapeEllipse =>
+    "ellipse"
+
+  ShapeOval =>
+    "oval"
+
+  ShapeCircle =>
+    "circle"
+
+  ShapePoint =>
+    "point"
+
+  ShapeEgg =>
+    "egg"
+
+  ShapeTriangle =>
+    "triangle"
+
+  ShapePlaintext =>
+    "plaintext"
+
+  ShapePlain =>
+    "plain"
+
+  ShapeDiamond =>
+    "diamond"
+
+  ShapeTrapezium =>
+    "trapezium"
+
+  ShapeParallelogram =>
+    "parallelogram"
+
+  ShapeHouse =>
+    "house"
+
+  ShapePentagon =>
+    "pentagon"
+
+  ShapeHexagon =>
+    "hexagon"
+
+  ShapeSeptagon =>
+    "septagon"
+
+  ShapeOctagon =>
+    "octagon"
+
+  ShapeDoublecircle =>
+    "doublecircle"
+
+  ShapeDoubleoctagon =>
+    "doubleoctagon"
+
+  ShapeTripleoctagon =>
+    "tripleoctagon"
+
+  ShapeInvtriangle =>
+    "invtriangle"
+
+  ShapeInvtrapezium =>
+    "invtrapezium"
+
+  ShapeInvhouse =>
+    "invhouse"
+
+  ShapeMdiamond =>
+    "mdiamond"
+
+  ShapeMsquare =>
+    "msquare"
+
+  ShapeMcircle =>
+    "mcircle"
+
+  ShapeRect =>
+    "rect"
+
+  ShapeRectangle =>
+    "rectangle"
+
+  ShapeSquare =>
+    "square"
+
+  ShapeStar =>
+    "star"
+
+  ShapeNone =>
+    "none"
+
+  ShapeUnderline =>
+    "underline"
+
+  ShapeCylinder =>
+    "cylinder"
+
+  ShapeNote =>
+    "note"
+
+  ShapeTab =>
+    "tab"
+
+  ShapeFolder =>
+    "folder"
+
+  ShapeBox3d =>
+    "box3d"
+
+  ShapeComponent =>
+    "component"
+
+  ShapePromoter =>
+    "promoter"
+
+  ShapeCds =>
+    "cds"
+
+  ShapeTerminator =>
+    "terminator"
+
+  ShapeUtr =>
+    "utr"
+
+  ShapePrimersite =>
+    "primersite"
+
+  ShapeRestrictionsite =>
+    "restrictionsite"
+
+  ShapeFivepoverhang =>
+    "fivepoverhang"
+
+  ShapeThreepoverhang =>
+    "threepoverhang"
+
+  ShapeNoverhang =>
+    "noverhang"
+
+  ShapeAssembly =>
+    "assembly"
+
+  ShapeSignature =>
+    "signature"
+
+  ShapeInsulator =>
+    "insulator"
+
+  ShapeRibosite =>
+    "ribosite"
+
+  ShapeRnastab =>
+    "rnastab"
+
+  ShapeProteasesite =>
+    "proteasesite"
+
+  ShapeProteinstab =>
+    "proteinstab"
+
+  ShapeRpromoter =>
+    "rpromoter"
+
+  ShapeRarrow =>
+    "rarrow"
+
+  ShapeLarrow =>
+    "larrow"
+
+  ShapeLpromoter =>
+    "lpromoter"
+}
+
+export stringToShape = (x) => if (x == "box") {
+  ShapeBox
+} else if (x == "polygon") {
+  ShapePolygon
+} else if (x == "ellipse") {
+  ShapeEllipse
+} else if (x == "oval") {
+  ShapeOval
+} else if (x == "circle") {
+  ShapeCircle
+} else if (x == "point") {
+  ShapePoint
+} else if (x == "egg") {
+  ShapeEgg
+} else if (x == "triangle") {
+  ShapeTriangle
+} else if (x == "plaintext") {
+  ShapePlaintext
+} else if (x == "plain") {
+  ShapePlain
+} else if (x == "diamond") {
+  ShapeDiamond
+} else if (x == "trapezium") {
+  ShapeTrapezium
+} else if (x == "parallelogram") {
+  ShapeParallelogram
+} else if (x == "house") {
+  ShapeHouse
+} else if (x == "pentagon") {
+  ShapePentagon
+} else if (x == "hexagon") {
+  ShapeHexagon
+} else if (x == "septagon") {
+  ShapeSeptagon
+} else if (x == "octagon") {
+  ShapeOctagon
+} else if (x == "doublecircle") {
+  ShapeDoublecircle
+} else if (x == "doubleoctagon") {
+  ShapeDoubleoctagon
+} else if (x == "tripleoctagon") {
+  ShapeTripleoctagon
+} else if (x == "invtriangle") {
+  ShapeInvtriangle
+} else if (x == "invtrapezium") {
+  ShapeInvtrapezium
+} else if (x == "invhouse") {
+  ShapeInvhouse
+} else if (x == "mdiamond") {
+  ShapeMdiamond
+} else if (x == "msquare") {
+  ShapeMsquare
+} else if (x == "mcircle") {
+  ShapeMcircle
+} else if (x == "rect") {
+  ShapeRect
+} else if (x == "rectangle") {
+  ShapeRectangle
+} else if (x == "square") {
+  ShapeSquare
+} else if (x == "star") {
+  ShapeStar
+} else if (x == "none") {
+  ShapeNone
+} else if (x == "underline") {
+  ShapeUnderline
+} else if (x == "cylinder") {
+  ShapeCylinder
+} else if (x == "note") {
+  ShapeNote
+} else if (x == "tab") {
+  ShapeTab
+} else if (x == "folder") {
+  ShapeFolder
+} else if (x == "box3d") {
+  ShapeBox3d
+} else if (x == "component") {
+  ShapeComponent
+} else if (x == "promoter") {
+  ShapePromoter
+} else if (x == "cds") {
+  ShapeCds
+} else if (x == "terminator") {
+  ShapeTerminator
+} else if (x == "utr") {
+  ShapeUtr
+} else if (x == "primersite") {
+  ShapePrimersite
+} else if (x == "restrictionsite") {
+  ShapeRestrictionsite
+} else if (x == "fivepoverhang") {
+  ShapeFivepoverhang
+} else if (x == "threepoverhang") {
+  ShapeThreepoverhang
+} else if (x == "noverhang") {
+  ShapeNoverhang
+} else if (x == "assembly") {
+  ShapeAssembly
+} else if (x == "signature") {
+  ShapeSignature
+} else if (x == "insulator") {
+  ShapeInsulator
+} else if (x == "ribosite") {
+  ShapeRibosite
+} else if (x == "rnastab") {
+  ShapeRnastab
+} else if (x == "proteasesite") {
+  ShapeProteasesite
+} else if (x == "proteinstab") {
+  ShapeProteinstab
+} else if (x == "rpromoter") {
+  ShapeRpromoter
+} else if (x == "rarrow") {
+  ShapeRarrow
+} else if (x == "larrow") {
+  ShapeLarrow
+} else {
+  ShapeLpromoter
+}
+
 export type ImagePos
   = IPosTL
   | IPosTC
@@ -90,56 +442,273 @@ export type ImagePos
   | IPosBC
   | IPosBR
 
+export imagePosToString = where {
+  IPosTL =>
+    "TL"
+
+  IPosTC =>
+    "TC"
+
+  IPosTR =>
+    "TR"
+
+  IPosML =>
+    "ML"
+
+  IPosMC =>
+    "MC"
+
+  IPosMR =>
+    "MR"
+
+  IPosBL =>
+    "BL"
+
+  IPosBC =>
+    "BC"
+
+  IPosBR =>
+    "BR"
+}
+export stringToImagePos = (x) => if (x == "TL") {
+  IPosTL
+} else if (x == "TC") {
+  IPosTC
+} else if (x == "TR") {
+  IPosTR
+} else if (x == "ML") {
+  IPosML
+} else if (x == "MC") {
+  IPosMC
+} else if (x == "MR") {
+  IPosMR
+} else if (x == "BL") {
+  IPosBL
+} else if (x == "BC") {
+  IPosBC
+} else {
+  IPosBR
+}
+
 export type NodeAttribute
-  = NA_area(Float)
-  | NA_class(String)
-  | NA_color(Color)
-  | NA_colorscheme(String)
-  | NA_comment(String)
-  | NA_distortion(Float)
-  | NA_fillcolor(Color)
-  | NA_fixedsize(Boolean)
-  | NA_fontcolor(Color)
-  | NA_fontname(String)
-  | NA_fontsize(String)
-  | NA_gradientangle(Integer)
-  | NA_group(String)
-  | NA_height(Float)
-  | NA_href(String)
-  | NA_id(String)
-  | NA_image(String)
-  | NA_imagepos(ImagePos)
-  | NA_imagescale(String)
-  | NA_label(String)
-  | NA_labelloc(String)
-  | NA_layer(Layer)
-  | NA_margin(Float)
-  | NA_nojustify(Boolean)
-  | NA_ordering(String)
-  | NA_orientation(Float)
-  | NA_penwidth(Float)
-  | NA_peripheries(Integer)
-  | NA_pin(Boolean)
-  | NA_pos(String)
-  | NA_rects(List Rect)
-  | NA_regular(Boolean)
-  | NA_root(String)
-  | NA_samplepoints(Integer)
-  | NA_shape(NodeShape)
-  | NA_showboxes(Integer)
-  | NA_sides(Integer)
-  | NA_skew(Float)
-  | NA_sortv(Integer)
-  | NA_style(NodeStyle)
-  | NA_target(String)
-  | NA_tooltip(String)
-  | NA_URL(String)
-  | NA_vertices(String)
-  | NA_width(Float)
-  | NA_xlabel(String)
-  | NA_xlp(String)
-  | NA_z(Float)
-  | NA_UNMATCHED_ATTRIBUTE
+  = Area(Float)
+  | Class(String)
+  | Color(String)
+  | Colorscheme(String)
+  | Comment(String)
+  | Distortion(Float)
+  | Fillcolor(String)
+  | Fixedsize(Boolean)
+  | Fontcolor(String)
+  | Fontname(String)
+  | Fontsize(String)
+  | Gradientangle(Integer)
+  | Group(String)
+  | Height(Float)
+  | Href(String)
+  | Id(String)
+  | Image(String)
+  | Imagepos(ImagePos)
+  | Imagescale(String)
+  | Label(String)
+  | Labelloc(String)
+  | Layer(String)
+  | Margin(Float)
+  | Nojustify(Boolean)
+  | Ordering(String)
+  | Orientation(Float)
+  | Penwidth(Float)
+  | Peripheries(Integer)
+  | Pin(Boolean)
+  | Pos(String)
+  | Rects(List Rect)
+  | Regular(Boolean)
+  | Root(String)
+  | Samplepoints(Integer)
+  | Shape(NodeShape)
+  | Showboxes(Integer)
+  | Sides(Integer)
+  | Skew(Float)
+  | Sortv(Integer)
+  | Style(NodeStyle)
+  | Target(String)
+  | Tooltip(String)
+  | URL(String)
+  | Vertices(String)
+  | Width(Float)
+  | Xlabel(String)
+  | Xlp(String)
+  | Z(Float)
+  | UnmatchedNodeAttribute
+
+export attributeToString = where {
+  Area(x) =>
+    `area = ${show(x)};`
+
+  Class(x) =>
+    `class = ${show(x)};`
+
+  Color(x) =>
+    `color = ${show(x)};`
+
+  Colorscheme(x) =>
+    `colorscheme = ${show(x)};`
+
+  Comment(x) =>
+    `comment = ${show(x)};`
+
+  Distortion(x) =>
+    `distortion = ${show(x)};`
+
+  Fillcolor(x) =>
+    `fillcolor = ${show(x)};`
+
+  Fixedsize(x) =>
+    `fixedsize = ${show(x)};`
+
+  Fontcolor(x) =>
+    `fontcolor = ${show(x)};`
+
+  Fontname(x) =>
+    `fontname = ${show(x)};`
+
+  Fontsize(x) =>
+    `fontsize = ${show(x)};`
+
+  Gradientangle(x) =>
+    `gradientangle = ${show(x)};`
+
+  Group(x) =>
+    `group = ${show(x)};`
+
+  Height(x) =>
+    `height = ${show(x)};`
+
+  Href(x) =>
+    `href = ${show(x)};`
+
+  Id(x) =>
+    `id = ${show(x)};`
+
+  Image(x) =>
+    `image = ${show(x)};`
+
+  Imagepos(x) =>
+    `imagepos = ${show(x)};`
+
+  Imagescale(x) =>
+    `imagescale = ${show(x)};`
+
+  Label(x) =>
+    `label = ${show(x)};`
+
+  Labelloc(x) =>
+    `labelloc = ${show(x)};`
+
+  Layer(x) =>
+    `layer = ${show(x)};`
+
+  Margin(x) =>
+    `margin = ${show(x)};`
+
+  Nojustify(x) =>
+    `nojustify = ${show(x)};`
+
+  Ordering(x) =>
+    `ordering = ${show(x)};`
+
+  Orientation(x) =>
+    `orientation = ${show(x)};`
+
+  Penwidth(x) =>
+    `penwidth = ${show(x)};`
+
+  Peripheries(x) =>
+    `peripheries = ${show(x)};`
+
+  Pin(x) =>
+    `pin = ${show(x)};`
+
+  Pos(x) =>
+    `pos = ${show(x)};`
+
+  Rects(x) =>
+    `rects = ${show(x)};`
+
+  Regular(x) =>
+    `regular = ${show(x)};`
+
+  Root(x) =>
+    `root = ${show(x)};`
+
+  Samplepoints(x) =>
+    `samplepoints = ${show(x)};`
+
+  Shape(x) =>
+    `shape = ${show(x)};`
+
+  Showboxes(x) =>
+    `showboxes = ${show(x)};`
+
+  Sides(x) =>
+    `sides = ${show(x)};`
+
+  Skew(x) =>
+    `skew = ${show(x)};`
+
+  Sortv(x) =>
+    `sortv = ${show(x)};`
+
+  Style(x) =>
+    `style = ${show(x)};`
+
+  Target(x) =>
+    `target = ${show(x)};`
+
+  Tooltip(x) =>
+    `tooltip = ${show(x)};`
+
+  URL(x) =>
+    `uRL = ${show(x)};`
+
+  Vertices(x) =>
+    `vertices = ${show(x)};`
+
+  Width(x) =>
+    `width = ${show(x)};`
+
+  Xlabel(x) =>
+    `xlabel = ${show(x)};`
+
+  Xlp(x) =>
+    `xlp = ${show(x)};`
+
+  Z(x) =>
+    `z = ${show(x)};`
+
+  UnmatchedNodeAttribute =>
+    `/* unmatched node attribute */`
+}
+
+renderAttributes :: List NodeAttribute -> String
+export renderAttributes = pipe(
+  map(attributeToString),
+  join("\n"),
+)
 
 
 export type Node = Node(String, List NodeAttribute) | GlobalNode(List NodeAttribute)
+
+export renderNode = where {
+  Node(name, attrs) =>
+    `${name} [${renderAttributes(attrs)}]`
+
+  GlobalNode(attrs) =>
+    `node [${renderAttributes(attrs)}]`
+}
+
+renderNodes :: List Node -> String
+export renderNodes = pipe(
+  map(renderNode),
+  join("\n"),
+)
