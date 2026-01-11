@@ -1,0 +1,48 @@
+import type { Edge } from "@/Edge"
+import type { Rect } from "@/Geometry"
+import type { Node } from "@/Node"
+
+
+
+alias Color = String
+
+export type ClusterStyle = ClusterStyleFilled | ClusterStyleStriped | ClusterStyleRounded
+
+export alias Layer = String
+export type Justification = JustificationLeft | JustificationCenter | JustificationRight
+
+export type ClusterAttribute
+  = CA_area(Float)
+  | CA_bb(Rect)
+  | CA_bgcolor(Color)
+  | CA_class(String)
+  | CA_cluster(Boolean)
+  | CA_color(Color)
+  | CA_colorscheme(String)
+  | CA_fillcolor(Color)
+  | CA_fontcolor(Color)
+  | CA_fontname(String)
+  | CA_fontsize(Float)
+  | CA_gradientangle(Integer)
+  | CA_href(String)
+  | CA_id(String)
+  | CA_K(Float)
+  | CA_label(String)
+  | CA_labeljust(Justification)
+  | CA_labelloc(String)
+  | CA_layer(String)
+  | CA_lheight(Float)
+  | CA_lp(String)
+  | CA_lwidth(Float)
+  | CA_margin(Float)
+  | CA_nojustify(Boolean)
+  | CA_pencolor(Color)
+  | CA_penwidth(Float)
+  | CA_peripheries(Integer)
+  | CA_sortv(Integer)
+  | CA_style(ClusterStyle)
+  | CA_target(String)
+  | CA_tooltip(String)
+  | CA_URL(String)
+
+export type Cluster = Cluster(String, List ClusterAttribute, List Node, List Edge)

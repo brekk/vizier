@@ -1,0 +1,8 @@
+import type { Cluster } from "@/Cluster"
+import type { Edge } from "@/Edge"
+import type { Graph, GraphAttribute } from "@/Graph"
+import type { Node } from "@/Node"
+
+
+
+export type Vizier = Vizier(List GraphAttribute, List Graph, List Cluster, List Node, List Edge)

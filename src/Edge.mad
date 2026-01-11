@@ -1,0 +1,114 @@
+alias Color = String
+
+export type Direction = Forward | Backward | Bidirectional | NoneDirection
+
+export type PortPosition
+  = North
+  | NorthEast
+  | East
+  | SouthEast
+  | SouthWest
+  | NorthWest
+  | Central
+  | PortGap
+
+export type EdgeStyle
+  = EdgeStyleDashed
+  | EdgeStyleDotted
+  | EdgeStyleSolid
+  | EdgeStyleInvis
+  | EdgeStyleBold
+  | EdgeStyleTapered
+
+export type ArrowType
+  = ArrowNormal
+  | ArrowInv
+  | ArrowDot
+  | ArrowInvdot
+  | ArrowOdot
+  | ArrowInvodot
+  | ArrowNone
+  | ArrowTee
+  | ArrowEmpty
+  | ArrowInvempty
+  | ArrowDiamond
+  | ArrowOdiamond
+  | ArrowEdiamond
+  | ArrowCrow
+  | ArrowBox
+  | ArrowObox
+  | ArrowOpen
+  | ArrowHalfopen
+  | ArrowVee
+
+export type EdgeAttribute
+  = EA_arrowhead(ArrowType)
+  | EA_arrowsize(Float)
+  | EA_arrowtail(ArrowType)
+  | EA_class(String)
+  | EA_color(Color)
+  | EA_colorscheme(String)
+  | EA_comment(String)
+  | EA_constraint(Boolean)
+  | EA_decorate(Boolean)
+  | EA_dir(Direction)
+  | EA_edgehref(String)
+  | EA_edgetarget(String)
+  | EA_edgetooltip(String)
+  | EA_edgeURL(String)
+  | EA_fillcolor(Color)
+  | EA_fontcolor(Color)
+  | EA_fontname(String)
+  | EA_fontsize(Float)
+  | EA_head_lp(String)
+  | EA_headclip(Boolean)
+  | EA_headhref(String)
+  | EA_headlabel(String)
+  | EA_headport(PortPosition)
+  | EA_headtarget(String)
+  | EA_headtooltip(String)
+  | EA_headURL(String)
+  | EA_href(String)
+  | EA_id(String)
+  | EA_label(String)
+  | EA_labelangle(Float)
+  | EA_labeldistance(Float)
+  | EA_labelfloat(Boolean)
+  | EA_labelfontcolor(Color)
+  | EA_labelfontname(String)
+  | EA_labelfontsize(Float)
+  | EA_labelhref(String)
+  | EA_labeltarget(String)
+  | EA_labeltooltip(String)
+  | EA_labelURL(String)
+  | EA_layer(String)
+  | EA_len(Float)
+  | EA_lhead(String)
+  | EA_lp(String)
+  | EA_ltail(String)
+  | EA_minlen(Integer)
+  | EA_nojustify(Boolean)
+  | EA_penwidth(Integer)
+  | EA_pos(String)
+  | EA_radius(Float)
+  | EA_samehead(String)
+  | EA_sametail(String)
+  | EA_showboxes(Integer)
+  | EA_style(EdgeStyle)
+  | EA_tail_lp(String)
+  | EA_tailclip(Boolean)
+  | EA_tailhref(String)
+  | EA_taillabel(String)
+  | EA_tailport(PortPosition)
+  | EA_tailtarget(String)
+  | EA_tailtooltip(String)
+  | EA_tailURL(String)
+  | EA_target(String)
+  | EA_tooltip(String)
+  | EA_URL(String)
+  | EA_weight(Float)
+  | EA_xlabel(String)
+  | EA_xlp(String)
+
+
+export type Edge = Edge(List String, List EdgeAttribute) | GlobalEdge(List EdgeAttribute)

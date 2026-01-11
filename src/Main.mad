@@ -1,0 +1,28 @@
+import IO from "IO"
+
+import { Cluster } from "@/Cluster"
+import { Edge } from "@/Edge"
+import { NA_shape, Node, ShapeDiamond, ShapeMdiamond, ShapeMsquare } from "@/Node"
+import { Vizier } from "@/Vizier"
+
+
+
+main = () => {
+  // , Node("end", [NA_shape(ShapeMsquare)])]
+  nodes = [Node("yo", [NA_shape(ShapeDiamond)])]
+  // nodes = [Node("start", [NA_shape(ShapeMdiamond)])]
+  // nodes = []
+  clusters = [
+    Cluster(
+      "process #2",
+      [],
+      [Node("b0", []), Node("b1", []), Node("b2", []), Node("b3", [])],
+      [Edge(["b0", "b1", "b2", "b3"], [])],
+    ),
+  ]
+  edges = []
+  pipe(
+    Vizier([], [], clusters, nodes),
+    IO.pTrace("Vizier!"),
+  )(edges)
+}

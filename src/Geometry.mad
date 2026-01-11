@@ -1,0 +1,1 @@
+export type Rect = Rect(Integer, Integer, Integer, Integer)

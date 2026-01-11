@@ -1,0 +1,145 @@
+import type { Rect } from "@/Geometry"
+
+
+
+alias Color = String
+alias Layer = String
+
+export type NodeStyle
+  = NodeStyleDashed
+  | NodeStyleDotted
+  | NodeStyleSolid
+  | NodeStyleInvis
+  | NodeStyleBold
+  | NodeStyleFilled
+  | NodeStyleStriped
+  | NodeStyleWedged
+  | NodeStyleDiagonals
+  | NodeStyleRounded
+
+
+export type NodeShape
+  = ShapeBox
+  | ShapePolygon
+  | ShapeEllipse
+  | ShapeOval
+  | ShapeCircle
+  | ShapePoint
+  | ShapeEgg
+  | ShapeTriangle
+  | ShapePlaintext
+  | ShapePlain
+  | ShapeDiamond
+  | ShapeTrapezium
+  | ShapeParallelogram
+  | ShapeHouse
+  | ShapePentagon
+  | ShapeHexagon
+  | ShapeSeptagon
+  | ShapeOctagon
+  | ShapeDoublecircle
+  | ShapeDoubleoctagon
+  | ShapeTripleoctagon
+  | ShapeInvtriangle
+  | ShapeInvtrapezium
+  | ShapeInvhouse
+  | ShapeMdiamond
+  | ShapeMsquare
+  | ShapeMcircle
+  | ShapeRect
+  | ShapeRectangle
+  | ShapeSquare
+  | ShapeStar
+  | ShapeNone
+  | ShapeUnderline
+  | ShapeCylinder
+  | ShapeNote
+  | ShapeTab
+  | ShapeFolder
+  | ShapeBox3d
+  | ShapeComponent
+  | ShapePromoter
+  | ShapeCds
+  | ShapeTerminator
+  | ShapeUtr
+  | ShapePrimersite
+  | ShapeRestrictionsite
+  | ShapeFivepoverhang
+  | ShapeThreepoverhang
+  | ShapeNoverhang
+  | ShapeAssembly
+  | ShapeSignature
+  | ShapeInsulator
+  | ShapeRibosite
+  | ShapeRnastab
+  | ShapeProteasesite
+  | ShapeProteinstab
+  | ShapeRpromoter
+  | ShapeRarrow
+  | ShapeLarrow
+  | ShapeLpromoter
+
+export type ImagePos
+  = IPosTL
+  | IPosTC
+  | IPosTR
+  | IPosML
+  | IPosMC
+  | IPosMR
+  | IPosBL
+  | IPosBC
+  | IPosBR
+
+export type NodeAttribute
+  = NA_area(Float)
+  | NA_class(String)
+  | NA_color(Color)
+  | NA_colorscheme(String)
+  | NA_comment(String)
+  | NA_distortion(Float)
+  | NA_fillcolor(Color)
+  | NA_fixedsize(Boolean)
+  | NA_fontcolor(Color)
+  | NA_fontname(String)
+  | NA_fontsize(String)
+  | NA_gradientangle(Integer)
+  | NA_group(String)
+  | NA_height(Float)
+  | NA_href(String)
+  | NA_id(String)
+  | NA_image(String)
+  | NA_imagepos(ImagePos)
+  | NA_imagescale(String)
+  | NA_label(String)
+  | NA_labelloc(String)
+  | NA_layer(Layer)
+  | NA_margin(Float)
+  | NA_nojustify(Boolean)
+  | NA_ordering(String)
+  | NA_orientation(Float)
+  | NA_penwidth(Float)
+  | NA_peripheries(Integer)
+  | NA_pin(Boolean)
+  | NA_pos(String)
+  | NA_rects(List Rect)
+  | NA_regular(Boolean)
+  | NA_root(String)
+  | NA_samplepoints(Integer)
+  | NA_shape(NodeShape)
+  | NA_showboxes(Integer)
+  | NA_sides(Integer)
+  | NA_skew(Float)
+  | NA_sortv(Integer)
+  | NA_style(NodeStyle)
+  | NA_target(String)
+  | NA_tooltip(String)
+  | NA_URL(String)
+  | NA_vertices(String)
+  | NA_width(Float)
+  | NA_xlabel(String)
+  | NA_xlp(String)
+  | NA_z(Float)
+  | NA_UNMATCHED_ATTRIBUTE
+
+
+export type Node = Node(String, List NodeAttribute) | GlobalNode(List NodeAttribute)
