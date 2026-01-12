@@ -1,0 +1,17 @@
+import List from "List"
+import String from "String"
+
+
+
+indent :: Integer -> String -> String
+export indent = (i, x) => String.replace(
+  "\n",
+  pipe(
+    List.repeat("  "),
+    String.join(""),
+    (y) => (y ++ "\n"),
+  )(i),
+  x,
+)
+export i1 = indent(1)
+export i2 = indent(2)

@@ -1,3 +1,4 @@
+import List from "List"
 import { join } from "String"
 
 
@@ -272,6 +273,7 @@ export type EdgeAttribute
   | Weight(Float)
   | Xlabel(String)
   | Xlp(String)
+  | UnmatchedEdgeAttribute
 
 export attributeToString = where {
   Arrowhead(x) =>
@@ -474,6 +476,9 @@ export attributeToString = where {
 
   Xlp(x) =>
     `xlp = ${show(x)};`
+
+  UnmatchedEdgeAttribute =>
+    `/* unmatched edge attribute */`
 }
 
 export type Edge = Edge(List String, List EdgeAttribute) | GlobalEdge(List EdgeAttribute)
@@ -485,15 +490,15 @@ export renderAttributes = pipe(
   join("\n"),
 )
 
-export renderEdge = where {
+export toString = where {
   Edge(links, attrs) =>
-    `${renderLinks(links)} [${renderAttributes(attrs)}]`
+    `${renderLinks(links)}${List.length(attrs) > 0 ? `[${renderAttributes(attrs)}]` : ""};`
 
   GlobalEdge(attrs) =>
-    `edge [${renderAttributes(attrs)}]`
+    `edge [${renderAttributes(attrs)}];`
 }
 
 export renderEdges = pipe(
-  map(renderEdge),
+  map(toString),
   join("\n"),
 )

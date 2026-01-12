@@ -3,6 +3,8 @@ import type { Rect } from "@/Geometry"
 import List from "List"
 import { join } from "String"
 
+import { attr } from "@/Dot"
+
 
 
 export type NodeStyle
@@ -206,13 +208,13 @@ export shapeToString = where {
     "invhouse"
 
   ShapeMdiamond =>
-    "mdiamond"
+    "Mdiamond"
 
   ShapeMsquare =>
-    "msquare"
+    "Msquare"
 
   ShapeMcircle =>
-    "mcircle"
+    "Mcircle"
 
   ShapeRect =>
     "rect"
@@ -543,148 +545,148 @@ export type NodeAttribute
 
 export attributeToString = where {
   Area(x) =>
-    `area = ${show(x)};`
+    attr("area", show(x))
 
   Class(x) =>
-    `class = ${show(x)};`
+    attr("class", show(x))
 
   Color(x) =>
-    `color = ${show(x)};`
+    attr("color", show(x))
 
   Colorscheme(x) =>
-    `colorscheme = ${show(x)};`
+    attr("colorscheme", show(x))
 
   Comment(x) =>
-    `comment = ${show(x)};`
+    attr("comment", show(x))
 
   Distortion(x) =>
-    `distortion = ${show(x)};`
+    attr("distortion", show(x))
 
   Fillcolor(x) =>
-    `fillcolor = ${show(x)};`
+    attr("fillcolor", show(x))
 
   Fixedsize(x) =>
-    `fixedsize = ${show(x)};`
+    attr("fixedsize", show(x))
 
   Fontcolor(x) =>
-    `fontcolor = ${show(x)};`
+    attr("fontcolor", show(x))
 
   Fontname(x) =>
-    `fontname = ${show(x)};`
+    attr("fontname", show(x))
 
   Fontsize(x) =>
-    `fontsize = ${show(x)};`
+    attr("fontsize", show(x))
 
   Gradientangle(x) =>
-    `gradientangle = ${show(x)};`
+    attr("gradientangle", show(x))
 
   Group(x) =>
-    `group = ${show(x)};`
+    attr("group", show(x))
 
   Height(x) =>
-    `height = ${show(x)};`
+    attr("height", show(x))
 
   Href(x) =>
-    `href = ${show(x)};`
+    attr("href", show(x))
 
   Id(x) =>
-    `id = ${show(x)};`
+    attr("id", show(x))
 
   Image(x) =>
-    `image = ${show(x)};`
+    attr("image", show(x))
 
   Imagepos(x) =>
-    `imagepos = ${show(x)};`
+    attr("imagepos", show(x))
 
   Imagescale(x) =>
-    `imagescale = ${show(x)};`
+    attr("imagescale", show(x))
 
   Label(x) =>
-    `label = ${show(x)};`
+    attr("label", show(x))
 
   Labelloc(x) =>
-    `labelloc = ${show(x)};`
+    attr("labelloc", show(x))
 
   Layer(x) =>
-    `layer = ${show(x)};`
+    attr("layer", show(x))
 
   Margin(x) =>
-    `margin = ${show(x)};`
+    attr("margin", show(x))
 
   Nojustify(x) =>
-    `nojustify = ${show(x)};`
+    attr("nojustify", show(x))
 
   Ordering(x) =>
-    `ordering = ${show(x)};`
+    attr("ordering", show(x))
 
   Orientation(x) =>
-    `orientation = ${show(x)};`
+    attr("orientation", show(x))
 
   Penwidth(x) =>
-    `penwidth = ${show(x)};`
+    attr("penwidth", show(x))
 
   Peripheries(x) =>
-    `peripheries = ${show(x)};`
+    attr("peripheries", show(x))
 
   Pin(x) =>
-    `pin = ${show(x)};`
+    attr("pin", show(x))
 
   Pos(x) =>
-    `pos = ${show(x)};`
+    attr("pos", show(x))
 
   Rects(x) =>
-    `rects = ${show(x)};`
+    attr("rects", show(x))
 
   Regular(x) =>
-    `regular = ${show(x)};`
+    attr("regular", show(x))
 
   Root(x) =>
-    `root = ${show(x)};`
+    attr("root", show(x))
 
   Samplepoints(x) =>
-    `samplepoints = ${show(x)};`
+    attr("samplepoints", show(x))
 
   Shape(x) =>
-    `shape = ${show(x)};`
+    attr("shape", shapeToString(x))
 
   Showboxes(x) =>
-    `showboxes = ${show(x)};`
+    attr("showboxes", show(x))
 
   Sides(x) =>
-    `sides = ${show(x)};`
+    attr("sides", show(x))
 
   Skew(x) =>
-    `skew = ${show(x)};`
+    attr("skew", show(x))
 
   Sortv(x) =>
-    `sortv = ${show(x)};`
+    attr("sortv", show(x))
 
   Style(x) =>
-    `style = ${show(x)};`
+    attr("style", styleLiteralToString(x))
 
   Target(x) =>
-    `target = ${show(x)};`
+    attr("target", show(x))
 
   Tooltip(x) =>
-    `tooltip = ${show(x)};`
+    attr("tooltip", show(x))
 
   URL(x) =>
-    `uRL = ${show(x)};`
+    attr("uRL", show(x))
 
   Vertices(x) =>
-    `vertices = ${show(x)};`
+    attr("vertices", show(x))
 
   Width(x) =>
-    `width = ${show(x)};`
+    attr("width", show(x))
 
   Xlabel(x) =>
-    `xlabel = ${show(x)};`
+    attr("xlabel", show(x))
 
   Xlp(x) =>
-    `xlp = ${show(x)};`
+    attr("xlp", show(x))
 
   Z(x) =>
-    `z = ${show(x)};`
+    attr("z", show(x))
 
   UnmatchedNodeAttribute =>
     `/* unmatched node attribute */`
@@ -706,9 +708,23 @@ export renderNode = where {
   GlobalNode(attrs) =>
     `node [${renderAttributes(attrs)}]`
 }
-
-renderNodes :: List Node -> String
-export renderNodes = pipe(
-  map(renderNode),
-  join("\n"),
+/*
+  join(
+    `\n${
+      pipe(
+        List.repeat("  "),
+        join(""),
+      )(i)
+    }`,
+  ),
+  */
+repeatIndent = pipe(
+  List.repeat("  "),
+  join(""),
 )
+renderNodesWithIndent :: Integer -> List Node -> String
+export renderNodesWithIndent = (i, x) => pipe(
+  map(renderNode),
+  join(`\n`),
+)(x)
+export renderNodes = renderNodesWithIndent(0)

@@ -1,5 +1,7 @@
 import type { Rect } from "@/Geometry"
 
+import { join } from "String"
+
 
 
 export type Layout
@@ -12,15 +14,97 @@ export type Layout
   | LayoutOsage
   | LayoutPatchwork
 
+layoutToString :: Layout -> String
+export layoutToString = where {
+  LayoutDot =>
+    "dot"
+
+  LayoutNeato =>
+    "neato"
+
+  LayoutFDP =>
+    "fdp"
+
+  LayoutSFDP =>
+    "sfdp"
+
+  LayoutCirco =>
+    "circo"
+
+  LayoutTwopi =>
+    "twopi"
+
+  LayoutOsage =>
+    "osage"
+
+  LayoutPatchwork =>
+    "patchwork"
+}
+
+export stringToLayout = (x) => if (x == "neato") {
+  LayoutNeato
+} else if (x == "fdp") {
+  LayoutFDP
+} else if (x == "sfdp") {
+  LayoutSFDP
+} else if (x == "circo") {
+  LayoutCirco
+} else if (x == "twopi") {
+  LayoutTwopi
+} else if (x == "osage") {
+  LayoutOsage
+} else if (x == "patchwork") {
+  LayoutPatchwork
+} else {
+  LayoutDot
+}
+
 export type LayoutMode = NeatoMajor | NeatoKK | NeatoSGD | NeatoHier | NeatoIpSep
+
+export layoutModeToString = where {
+  NeatoMajor =>
+    "major"
+
+  NeatoKK =>
+    "kk"
+
+  NeatoSGD =>
+    "sgd"
+
+  NeatoHier =>
+    "hier"
+
+  NeatoIpSep =>
+    "ipsep"
+}
 
 export alias GPoint = String
 
 export alias RelativeNumber = String
 
 export type ClusterMode = ClusterModeLocal | ClusterModeGlobal | ClusterModeNone
+export clusterModeToString = where {
+  ClusterModeLocal =>
+    "local"
+
+  ClusterModeGlobal =>
+    "global"
+
+  ClusterModeNone =>
+    "none"
+}
 
 export type OutputMode = OutputBreadthFirst | OutputNodesFirst | OutputEdgesFirst
+export outputModeToString = where {
+  OutputBreadthFirst =>
+    "breadthfirst"
+
+  OutputNodesFirst =>
+    "nodesfirst"
+
+  OutputEdgesFirst =>
+    "edgesfirst"
+}
 
 export type PackMode = PackNode | PackCluster | PackGraph | PackArray(List String)
 export type PageDir
@@ -33,6 +117,32 @@ export type PageDir
   | PageDirLB
   | PageDirLT
 
+export pageDirToString = where {
+  PageDirBL =>
+    "BL"
+
+  PageDirBR =>
+    "BR"
+
+  PageDirTL =>
+    "TL"
+
+  PageDirTR =>
+    "TR"
+
+  PageDirRB =>
+    "RB"
+
+  PageDirRT =>
+    "RT"
+
+  PageDirLB =>
+    "LB"
+
+  PageDirLT =>
+    "LT"
+}
+
 export type SmoothType
   = SmoothNone
   | SmoothAvgDist
@@ -42,10 +152,41 @@ export type SmoothType
   | SmoothSpring
   | SmoothTriangle
 
+export smoothTypeToString = where {
+  SmoothNone =>
+    "none"
+
+  SmoothAvgDist =>
+    "avgdist"
+
+  SmoothGraphDist =>
+    "graphdist"
+
+  SmoothPowerDist =>
+    "powerdist"
+
+  SmoothRng =>
+    "rng"
+
+  SmoothSpring =>
+    "spring"
+
+  SmoothTriangle =>
+    "triangle"
+}
+
 
 export type QuadType = QuadNormal | QuadFast | QuadNone
+export quadTypeToString = where {
+  QuadNormal =>
+    "quadnormal"
 
+  QuadFast =>
+    "quadfast"
 
+  QuadNone =>
+    "quadnone"
+}
 export type StartType = StartRegular | StartSelf | StartRandom
 export type RankDir = RankDirTB | RankDirLR | RankDirBT | RankDirRL
 
@@ -121,13 +262,13 @@ export type GraphAttribute
   | OverlapScaling(Float)
   | OverlapShrink(Boolean)
   | Pack(Boolean)
-  | Packmode(PackMode)
+  | Packmode(String)
   | Pad(Float)
   | Page(Float)
   | Pagedir(PageDir)
   | Quadtree(QuadType)
   | Quantum(Float)
-  | Rankdir(RankDir)
+  | Rankdir(String)
   | Ranksep(List Float)
   | Ratio(Float)
   | Remincross(Boolean)
@@ -144,7 +285,7 @@ export type GraphAttribute
   | Smoothing(SmoothType)
   | Sortv(Integer)
   | Splines(String)
-  | Start(StartType)
+  | Start(String)
   | Style(String)
   | Stylesheet(String)
   | Target(String)
@@ -155,6 +296,332 @@ export type GraphAttribute
   | Xdotversion(String)
   | UnknownGraphAttribute
 
+export attributeToString = where {
+  Damping(f) =>
+    `damping = ${show(f)};`
 
+  K(f) =>
+    `k = ${show(f)};`
+
+  TBbalance(s) =>
+    `tbbalance = ${show(s)};`
+
+  URL(s) =>
+    `url = ${show(s)};`
+
+  Background(s) =>
+    `background = ${show(s)};`
+
+  Bb(rect) =>
+    `bb = ${show(rect)};`
+
+  Beautify(b) =>
+    `beautify = ${show(b)};`
+
+  Bgcolor(s) =>
+    `bgcolor = ${show(s)};`
+
+  Center(b) =>
+    `center = ${show(b)};`
+
+  Charset(s) =>
+    `charset = ${show(s)};`
+
+  Class(s) =>
+    `class = ${show(s)};`
+
+  Clusterrank(clustermode) =>
+    `clusterrank = ${clusterModeToString(clustermode)};`
+
+  Colorscheme(s) =>
+    `colorscheme = ${show(s)};`
+
+  Comment(s) =>
+    `comment = ${show(s)};`
+
+  Compound(b) =>
+    `compound = ${show(b)};`
+
+  Concentrate(b) =>
+    `concentrate = ${show(b)};`
+
+  Defaultdist(f) =>
+    `defaultdist = ${show(f)};`
+
+  Dim(i) =>
+    `dim = ${show(i)};`
+
+  Dimen(i) =>
+    `dimen = ${show(i)};`
+
+  Diredgeconstraints(s, b) =>
+    `diredgeconstraints = ${show(s)};`
+
+  Dpi(f) =>
+    `dpi = ${show(f)};`
+
+  Epsilon(f) =>
+    `epsilon = ${show(f)};`
+
+  Esep(r) =>
+    `esep = ${show(r)};`
+
+  Fontcolor(s) =>
+    `fontcolor = ${show(s)};`
+
+  Fontname(s) =>
+    `fontname = ${show(s)};`
+
+  Fontnames(s) =>
+    `fontnames = ${show(s)};`
+
+  Fontpath(s) =>
+    `fontpath = ${show(s)};`
+
+  Fontsize(f) =>
+    `fontsize = ${show(f)};`
+
+  Forcelabels(b) =>
+    `forcelabels = ${show(b)};`
+
+  Gradientangle(i) =>
+    `gradientangle = ${show(i)};`
+
+  Href(s) =>
+    `href = ${show(s)};`
+
+  Id(s) =>
+    `id = ${show(s)};`
+
+  Imagepath(s) =>
+    `imagepath = ${show(s)};`
+
+  Inputscale(f) =>
+    `inputscale = ${show(f)};`
+
+  Label(s) =>
+    `label = ${show(s)};`
+
+  LabelScheme(i) =>
+    `labelscheme = ${show(i)};`
+
+  Labeljust(s) =>
+    `labeljust = ${show(s)};`
+
+  Labelloc(s) =>
+    `labelloc = ${show(s)};`
+
+  Landscape(b) =>
+    `landscape = ${show(b)};`
+
+  Layerlistsep(s) =>
+    `layerlistsep = ${show(s)};`
+
+  Layers(s) =>
+    `layers = ${show(s)};`
+
+  Layerselect(s) =>
+    `layerselect = ${show(s)};`
+
+  Layersep(s) =>
+    `layersep = ${show(s)};`
+
+  Layout(layout) =>
+    `layout = ${layoutToString(layout)};`
+
+  Levels(i) =>
+    `levels = ${show(i)};`
+
+  Levelsgap(f) =>
+    `levelsgap = ${show(f)};`
+
+  Lheight(f) =>
+    `lheight = ${show(f)};`
+
+  Linelength(i) =>
+    `linelength = ${show(i)};`
+
+  Lp(gpoint) =>
+    `lp = ${show(gpoint)};`
+
+  Lwidth(f) =>
+    `lwidth = ${show(f)};`
+
+  Margin(f) =>
+    `margin = ${show(f)};`
+
+  Maxiter(i) =>
+    `maxiter = ${show(i)};`
+
+  Mclimit(f) =>
+    `mclimit = ${show(f)};`
+
+  Mindist(f) =>
+    `mindist = ${show(f)};`
+
+  Mode(layoutmode) =>
+    `mode = ${layoutModeToString(layoutmode)};`
+
+  Model(s) =>
+    `model = ${show(s)};`
+
+  Newrank(b) =>
+    `newrank = ${show(b)};`
+
+  Nodesep(f) =>
+    `nodesep = ${show(f)};`
+
+  Nojustify(b) =>
+    `nojustify = ${show(b)};`
+
+  Normalize(f) =>
+    `normalize = ${show(f)};`
+
+  Notranslate(b) =>
+    `notranslate = ${show(b)};`
+
+  Nslimit(f) =>
+    `nslimit = ${show(f)};`
+
+  Nslimit1(f) =>
+    `nslimit1 = ${show(f)};`
+
+  Oneblock(b) =>
+    `oneblock = ${show(b)};`
+
+  Ordering(s) =>
+    `ordering = ${show(s)};`
+
+  Orientation(f) =>
+    `orientation = ${show(f)};`
+
+  Outputorder(outputmode) =>
+    `outputorder = ${outputModeToString(outputmode)};`
+
+  Overlap(s) =>
+    `overlap = ${show(s)};`
+
+  OverlapScaling(f) =>
+    `overlapscaling = ${show(f)};`
+
+  OverlapShrink(b) =>
+    `overlapshrink = ${show(b)};`
+
+  Pack(b) =>
+    `pack = ${show(b)};`
+
+  Packmode(packmode) =>
+    `packmode = ${show(packmode)};`
+
+  Pad(f) =>
+    `pad = ${show(f)};`
+
+  Page(f) =>
+    `page = ${show(f)};`
+
+  Pagedir(pagedir) =>
+    `pagedir = ${show(pagedir)};`
+
+  Quadtree(quadtype) =>
+    `quadtree = ${show(quadtype)};`
+
+  Quantum(f) =>
+    `quantum = ${show(f)};`
+
+  Rankdir(r) =>
+    `rankdir = ${show(r)};`
+
+  Ranksep(l) =>
+    `ranksep = ${
+      pipe(
+        map(show),
+        join(","),
+      )(l)
+    }";`
+
+  Ratio(f) =>
+    `ratio = ${show(f)};`
+
+  Remincross(b) =>
+    `remincross = ${show(b)};`
+
+  Repulsiveforce(f) =>
+    `repulsiveforce = ${show(f)};`
+
+  Resolution(f) =>
+    `resolution = ${show(f)};`
+
+  Root(s) =>
+    `root = ${show(s)};`
+
+  Rotate(i) =>
+    `rotate = ${show(i)};`
+
+  Rotation(f) =>
+    `rotation = ${show(f)};`
+
+  Scale(f) =>
+    `scale = ${show(f)};`
+
+  Searchsize(i) =>
+    `searchsize = ${show(i)};`
+
+  Sep(f) =>
+    `sep = ${show(f)};`
+
+  Showboxes(i) =>
+    `showboxes = ${show(i)};`
+
+  Size(f) =>
+    `size = ${show(f)};`
+
+  Smoothing(sm) =>
+    `smoothing = ${smoothTypeToString(sm)};`
+
+  Sortv(i) =>
+    `sortv = ${show(i)};`
+
+  Splines(s) =>
+    `splines = ${show(s)};`
+
+  Start(starttype) =>
+    `start = ${show(starttype)};`
+
+  Style(s) =>
+    `style = ${show(s)};`
+
+  Stylesheet(s) =>
+    `stylesheet = ${show(s)};`
+
+  Target(s) =>
+    `target = ${show(s)};`
+
+  Tooltip(s) =>
+    `tooltip = ${show(s)};`
+
+  Truecolor(b) =>
+    `truecolor = ${show(b)};`
+
+  Viewport(s) =>
+    `viewport = ${show(s)};`
+
+  VoroMargin(f) =>
+    `voromargin = ${show(f)};`
+
+  Xdotversion(s) =>
+    `xdotversion = ${show(s)};`
+
+  UnknownGraphAttribute =>
+    `/* unknown graph attribute */`
+}
+
+export renderAttributes = pipe(
+  map(attributeToString),
+  join("\n"),
+)
 
 export type Graph = GlobalGraph(List GraphAttribute)
+export toString = where {
+  GlobalGraph(attrs) =>
+    `graph [${renderAttributes(attrs)}]`
+}

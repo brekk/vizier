@@ -1,27 +1,61 @@
 import IO from "IO"
 
-import { Cluster } from "@/Cluster"
+import C from "@/Cluster"
 import Color from "@/Color"
 import { Edge } from "@/Edge"
-import { Node, Shape, ShapeDiamond, ShapeMdiamond, ShapeMsquare } from "@/Node"
-import { Vizier } from "@/Vizier"
+import G from "@/Graph"
+import N from "@/Node"
+import {} from "@/String"
+import { Vizier, toString } from "@/Vizier"
 
 
 
 main = () => {
   // , Node("end", [NA_shape(ShapeMsquare)])]
-  nodes = [Node("start", [Shape(ShapeMdiamond)]), Node("end", [Shape(ShapeMsquare)])]
+  nodes = [
+    N.GlobalNode([N.Fontname("Helvetica Neue")]),
+    N.Node("start", [N.Shape(N.ShapeMdiamond)]),
+    N.Node("end", [N.Shape(N.ShapeMsquare)]),
+  ]
   clusters = [
-    Cluster(
+    C.Cluster(
+      "process #1",
+      [C.Style(C.ClusterStyleFilled), C.Color("lightgrey")],
+      [
+        N.Node("a0", []),
+        N.Node("a1", []),
+        N.Node("a2", []),
+        N.Node("a3", []),
+        N.GlobalNode([N.Style(N.NodeStyleFilled), N.Color("white")]),
+      ],
+      [Edge(["a0", "a1", "a2", "a3"], [])],
+    ),
+    C.Cluster(
       "process #2",
-      [],
-      [Node("b0", []), Node("b1", []), Node("b2", []), Node("b3", [])],
+      [C.Color("blue")],
+      [
+        N.Node("b0", []),
+        N.Node("b1", []),
+        N.Node("b2", []),
+        N.Node("b3", []),
+        N.GlobalNode([N.Style(N.NodeStyleFilled)]),
+      ],
       [Edge(["b0", "b1", "b2", "b3"], [])],
     ),
   ]
-  edges = []
+  edges = [
+    Edge(["start", "a0"], []),
+    Edge(["start", "b0"], []),
+    Edge(["a1", "b3"], []),
+    Edge(["b2", "a3"], []),
+    Edge(["a3", "a0"], []),
+    Edge(["a3", "end"], []),
+    Edge(["b3", "end"], []),
+  ]
   pipe(
-    Vizier([], [], clusters, nodes),
-    IO.pTrace("Vizier!"),
+    Vizier("G", [G.Fontname("Helvetica Neue")], [], clusters, nodes),
+    // IO.pTrace("Vizier!"),
+    toString,
+    IO.put,
   )(edges)
 }

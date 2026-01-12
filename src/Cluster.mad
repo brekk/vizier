@@ -5,8 +5,11 @@ import type { Node } from "@/Node"
 import List from "List"
 import { join } from "String"
 
+import { attr } from "@/Dot"
+import { renderEdges } from "@/Edge"
 import { Rect } from "@/Geometry"
-import { renderNodes } from "@/Node"
+import { renderNodes, renderNodesWithIndent } from "@/Node"
+import { indent } from "@/String"
 
 
 
@@ -83,111 +86,118 @@ export type Cluster = Cluster(String, List ClusterAttribute, List Node, List Edg
 toString :: Integer -> Cluster -> String
 export toString = (i, c) => where(c) {
   Cluster(label, attrs, nodes, edges) =>
-    `subgraph cluster_${show(i)} {
-  label = "${label}";
-  ${renderAttributes(attrs)}
-  ${renderNodes(nodes)}
-  ${renderEdges(edges)}
-}`
+    `
+  subgraph cluster_${show(i)} {
+    label = "${label}";
+    ${renderAttributes(attrs)}
+    ${renderNodesWithIndent(2, nodes)}
+    ${renderEdges(edges)}
+  }`
 }
+
+renderClusters :: List Cluster -> String
+export renderClusters = pipe(
+  List.mapWithIndex((x, i) => toString(i, x)),
+  join("\n"),
+)
 
 attributeToString :: ClusterAttribute -> String
 export attributeToString = where {
   Area(f) =>
-    `area = ${show(f)};`
+    attr("area", show(f))
 
   Bb(Rect(a, b, c, d)) =>
-    `bb = ${show(a)},${show(b)},${show(c)},${show(d)};`
+    attr("bb", `${show(a)},${show(b)},${show(c)},${show(d)}`)
 
   Bgcolor(c) =>
-    `bgcolor = ${c};`
+    attr("bgcolor", c)
 
   Class(c) =>
-    `class = ${c};`
+    attr("class", c)
 
   ClusterAttr(yes) =>
-    `cluster = ${show(yes)};`
+    attr("cluster", show(yes))
 
   Color(s) =>
-    `color = ${s};`
+    attr("color", s)
 
   Colorscheme(s) =>
-    `colorscheme = ${s};`
+    attr("colorscheme", s)
 
   Fillcolor(s) =>
-    `fillcolor = ${s};`
+    attr("fillcolor", s)
 
   Fontcolor(s) =>
-    `fontcolor = ${s};`
+    attr("fontcolor", s)
 
   Fontname(s) =>
-    `fontname = ${s};`
+    attr("fontname", s)
 
   Fontsize(f) =>
-    `fontsize = ${show(f)};`
+    attr("fontsize", show(f))
 
   Gradientangle(i) =>
-    `gradientangle = ${show(i)};`
+    attr("gradientangle", show(i))
 
   Href(s) =>
-    `href = ${s};`
+    attr("href", s)
 
   Id(s) =>
-    `id = ${s};`
+    attr("id", s)
 
   K(f) =>
-    `K = ${show(f)};`
+    attr("K", show(f))
 
   Label(s) =>
-    `label = ${s};`
+    attr("label", s)
 
   Labeljust(j) =>
-    `labeljust = ${justificationToString(j)};`
+    attr("labeljust", justificationToString(j))
 
   Labelloc(s) =>
-    `labelloc = ${s};`
+    attr("labelloc", s)
 
   Layer(s) =>
-    `layer = ${s};`
+    attr("layer", s)
 
   Lheight(f) =>
-    `lheight = ${show(f)};`
+    attr("lheight", show(f))
 
   Lp(s) =>
-    `lp = ${s};`
+    attr("lp", s)
 
   Lwidth(f) =>
-    `lwidth = ${show(f)};`
+    attr("lwidth", show(f))
 
   Margin(f) =>
-    `margin = ${show(f)};`
+    attr("margin", show(f))
 
   Nojustify(x) =>
-    `nojustify = ${show(x)};`
+    attr("nojustify", show(x))
 
   Pencolor(c) =>
-    `pencolor = ${c};`
+    attr("pencolor", c)
 
   Penwidth(f) =>
-    `penwidth = ${show(f)};`
+    attr("penwidth", show(f))
 
   Peripheries(i) =>
-    `peripheries = ${show(i)};`
+    attr("peripheries", show(i))
 
   Sortv(i) =>
-    `sortv = ${show(i)};`
+    attr("sortv", show(i))
 
   Style(s) =>
-    `style = ${styleLiteralToString(s)};`
+    attr("style", styleLiteralToString(s))
 
   Target(s) =>
-    `target = ${s};`
+    attr("target", s)
 
   Tooltip(s) =>
-    `tooltip = ${s};`
+    attr("tooltip", s)
 
   URL(s) =>
-    `url = ${s};`
+    attr("url", s)
 
   UnmatchedClusterAttribute =>
     `/* unmatched cluster attribute */`
