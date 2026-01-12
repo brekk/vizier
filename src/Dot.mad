@@ -1,5 +1,6 @@
 enquote = (x) => `"` ++ x ++ `"`
 
-export attribute = (literal, k, v) => `${k} = ${literal ? enquote(v) : v};`
+export attributeWithDelimiter = (d, literal, k, v) => `${k} = ${literal ? enquote(v) : v}${d}`
+export attribute = attributeWithDelimiter(";")
 export literalAttr = attribute(true)
 export attr = attribute(false)

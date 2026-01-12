@@ -3,8 +3,13 @@ import type { Rect } from "@/Geometry"
 import List from "List"
 import { join } from "String"
 
-import { attr } from "@/Dot"
+import { attributeWithDelimiter } from "@/Dot"
 
+
+
+attribute = attributeWithDelimiter(",")
+literalAttr = attribute(true)
+attr = attribute(false)
 
 
 export type NodeStyle
@@ -703,10 +708,10 @@ export type Node = Node(String, List NodeAttribute) | GlobalNode(List NodeAttrib
 
 export renderNode = where {
   Node(name, attrs) =>
-    `${name} [${renderAttributes(attrs)}]`
+    List.length(attrs) > 0 ? `${name} [${renderAttributes(attrs)}]\n` : ``
 
   GlobalNode(attrs) =>
-    `node [${renderAttributes(attrs)}]`
+    `node [${renderAttributes(attrs)}]\n`
 }
 /*
   join(
@@ -725,6 +730,6 @@ repeatIndent = pipe(
 renderNodesWithIndent :: Integer -> List Node -> String
 export renderNodesWithIndent = (i, x) => pipe(
   map(renderNode),
-  join(`\n`),
+  join(``),
 )(x)
 export renderNodes = renderNodesWithIndent(0)
