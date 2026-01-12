@@ -1,3 +1,7 @@
+import { join } from "String"
+
+
+
 export type Direction = Forward | Backward | Bidirectional | NoneDirection
 
 export type PortPosition
@@ -473,3 +477,23 @@ export attributeToString = where {
 }
 
 export type Edge = Edge(List String, List EdgeAttribute) | GlobalEdge(List EdgeAttribute)
+
+export renderLinks = join(" -> ")
+
+export renderAttributes = pipe(
+  map(attributeToString),
+  join("\n"),
+)
+
+export renderEdge = where {
+  Edge(links, attrs) =>
+    `${renderLinks(links)} [${renderAttributes(attrs)}]`
+
+  GlobalEdge(attrs) =>
+    `edge [${renderAttributes(attrs)}]`
+}
+
+export renderEdges = pipe(
+  map(renderEdge),
+  join("\n"),
+)
