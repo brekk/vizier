@@ -1,0 +1,117 @@
+import { caseN2, caseN3, report } from "Study"
+
+import {
+  Area,
+  Bb,
+  Bgcolor,
+  Class,
+  ClusterAttr,
+  ClusterStyleFilled,
+  ClusterStyleRounded,
+  ClusterStyleStriped,
+  Color,
+  Colorscheme,
+  Fillcolor,
+  Fontcolor,
+  Fontname,
+  Fontsize,
+  Gradientangle,
+  Href,
+  Id,
+  JustificationCenter,
+  JustificationLeft,
+  JustificationRight,
+  K,
+  Label,
+  Labeljust,
+  Labelloc,
+  Layer,
+  Lheight,
+  Lp,
+  Lwidth,
+  Margin,
+  Nojustify,
+  Pencolor,
+  Penwidth,
+  Peripheries,
+  Sortv,
+  Style,
+  Target,
+  Tooltip,
+  URL,
+  UnmatchedClusterAttribute,
+  attributeToString,
+  justificationToString,
+  renderAttributes,
+  renderClusters,
+  stringToStyleLiteral,
+  styleLiteralToString,
+  toString,
+} from "@/Cluster"
+import { Rect } from "@/Geometry"
+
+
+
+report(
+  styleLiteralToString,
+  "stringLiteralToString",
+  [
+    #[ClusterStyleFilled, "filled"],
+    #[ClusterStyleStriped, "striped"],
+    #[ClusterStyleRounded, "rounded"],
+  ],
+)
+
+report(
+  stringToStyleLiteral,
+  "stringToStyleLiteral",
+  [
+    #["filled", ClusterStyleFilled],
+    #["striped", ClusterStyleStriped],
+    #["rounded", ClusterStyleRounded],
+  ],
+)
+
+report(
+  justificationToString,
+  "justificationToString",
+  [#[JustificationLeft, "left"], #[JustificationRight, "right"], #[JustificationCenter, "center"]],
+)
+
+report(
+  attributeToString,
+  "attributeToString",
+  [
+    #[Area(20), "area = 20"],
+    #[Bb(Rect(1, 2, 3, 4)), `bb = 1,2,3,4`],
+    #[Bgcolor("color"), `bgcolor = color`],
+    #[Class("class"), `class = "class"`],
+    #[ClusterAttr(true), `cluster = true`],
+    #[Color("red"), `color = red`],
+    #[Colorscheme("yellow"), `colorscheme = yellow`],
+    #[Fontcolor("xxx"), `fontcolor = xxx`],
+    #[Fontname("xxx"), `fontname = xxx`],
+    #[Fontsize(4), `fontsize = 4`],
+    #[Gradientangle(120), `gradientangle = 120`],
+    #[Href("xxx"), `href = xxx`],
+    #[Id("xxx"), `id = xxx`],
+    #[K(100), `K = 100`],
+    #[Label("xxx"), `label = xxx`],
+    #[Labeljust(JustificationCenter), `labeljust = center`],
+    #[Labelloc("xxx"), `labelloc = xxx`],
+    #[Layer("xxx"), `layer = xxx`],
+    #[Lheight(20), `lheight = 20`],
+    #[Lp("xxx"), `lp = xxx`],
+    #[Lwidth(20), `lwidth = 20`],
+    #[Margin(100), `margin = 100`],
+    #[Nojustify(true), `nojustify = true`],
+    #[Pencolor("xxx"), `pencolor = xxx`],
+    #[Penwidth(10), `penwidth = 10`],
+    #[Peripheries(123), `peripheries = 123`],
+    #[Sortv(1), `sortv = 1`],
+    #[Style(ClusterStyleFilled), `style = filled`],
+    #[Target("xxx"), `target = xxx`],
+    #[Tooltip("xxx"), `tooltip = xxx`],
+    #[URL("xxx"), `url = xxx`],
+  ],
+)

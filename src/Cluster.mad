@@ -113,7 +113,7 @@ export attributeToString = where {
     attr("bgcolor", c)
 
   Class(c) =>
-    attr("class", c)
+    attr("class", show(c))
 
   ClusterAttr(yes) =>
     attr("cluster", show(yes))
