@@ -8,7 +8,7 @@ import { join } from "String"
 import { attr } from "@/Dot"
 import { renderEdges } from "@/Edge"
 import { Rect } from "@/Geometry"
-import { renderNodes, renderNodesWithIndent } from "@/Node"
+import { renderNodes } from "@/Node"
 import { indent } from "@/String"
 
 
@@ -90,7 +90,7 @@ export toString = (i, c) => where(c) {
   subgraph cluster_${show(i)} {
     label = "${label}";
     ${renderAttributes(attrs)}
-    ${renderNodesWithIndent(2, nodes)}
+    ${renderNodes(nodes)}
     ${renderEdges(edges)}
   }`
 }

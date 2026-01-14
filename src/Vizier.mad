@@ -7,6 +7,7 @@ import { renderClusters } from "@/Cluster"
 import { renderEdges } from "@/Edge"
 import { renderAttributes } from "@/Graph"
 import { renderNodes } from "@/Node"
+import { replaceIndent } from "@/String"
 
 
 
@@ -17,8 +18,8 @@ toString :: Vizier -> String
 export toString = where {
   Vizier(name, attrs, graphs, clusters, nodes, edges) =>
     `digraph ${name} {${renderClusters(clusters)}
-  ${renderAttributes(attrs)}
+  ${replaceIndent(2, renderAttributes(attrs))}
   ${renderNodes(nodes)}
-    ${renderEdges(edges)}
+  ${renderEdges(edges)}
 }`
 }

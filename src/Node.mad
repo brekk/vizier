@@ -727,9 +727,8 @@ repeatIndent = pipe(
   List.repeat("  "),
   join(""),
 )
-renderNodesWithIndent :: Integer -> List Node -> String
-export renderNodesWithIndent = (i, x) => pipe(
+renderNodes :: List Node -> String
+export renderNodes = (x) => pipe(
   map(renderNode),
   join(``),
 )(x)
-export renderNodes = renderNodesWithIndent(0)

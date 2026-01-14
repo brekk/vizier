@@ -1,0 +1,24 @@
+import { assertEquals, test } from "Test"
+
+import { caseN2, report } from "Study"
+
+import {
+  indent,
+  indentByDelimiter,
+  indenture,
+  replaceIndentWithConfig,
+  replaceNewline,
+} from "@/String"
+
+
+
+report(indenture("#"), "indenture", [#[0, ""], #[1, "#"], #[2, "##"]])
+report(indentByDelimiter("#", 3), "indentByDelimiter", [#["yo", "###yo"], #[" skip", "### skip"]])
+report(indent(3), "indent(3)", [#["skippy", "   skippy"]])
+report(
+  replaceIndentWithConfig("^", "-", 2),
+  "replaceIndentWithConfig",
+  [#["do northing", "--do northing"]],
+)
+
+report(replaceNewline(2), "replaceNewline", [#["butts\nlove\nbutts", `butts  love  butts`]])

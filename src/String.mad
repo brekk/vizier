@@ -3,15 +3,16 @@ import String from "String"
 
 
 
-indent :: Integer -> String -> String
-export indent = (i, x) => String.replace(
-  "\n",
-  pipe(
-    List.repeat("  "),
-    String.join(""),
-    (y) => (y ++ "\n"),
-  )(i),
-  x,
-)
-export i1 = indent(1)
-export i2 = indent(2)
+export indenture = (t, i) => pipe(
+  List.repeat(t),
+  String.join(""),
+)(i)
+
+indentByDelimiter :: String -> Integer -> String -> String
+export indentByDelimiter = (t, i, x) => indenture(t, i) ++ x
+
+export indent = indentByDelimiter(" ")
+
+export replaceIndentWithConfig = (r, t, i, x) => String.replace(r, indenture(t, i), x)
+export replaceNewlineIndent = replaceIndentWithConfig("\n")
+export replaceNewline = replaceNewlineIndent(" ")

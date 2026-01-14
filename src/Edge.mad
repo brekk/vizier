@@ -500,5 +500,5 @@ export toString = where {
 
 export renderEdges = pipe(
   map(toString),
-  join("\n"),
+  join("\n  "),
 )
