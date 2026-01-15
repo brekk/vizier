@@ -1,0 +1,15 @@
+import { caseN3, report } from "Study"
+
+import { attr, attribute, attributeWithDelimiter, literalAttr } from "@/Dot"
+
+
+
+report(
+  attributeWithDelimiter(";", false, "yo"),
+  "attributeWithDelimiter",
+  [#["hooray", `yo = "hooray";`]],
+)
+
+report(attribute(false, "yo"), "attribute", [#["hooray", `yo = "hooray"`]])
+report(literalAttr("yo"), "literalAttr", [#["hooray", "yo = hooray"]])
+report(attr("yo"), "attr", [#["hooray", `yo = "hooray"`]])

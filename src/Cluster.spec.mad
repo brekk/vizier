@@ -5,6 +5,7 @@ import {
   Bb,
   Bgcolor,
   Class,
+  Cluster,
   ClusterAttr,
   ClusterStyleFilled,
   ClusterStyleRounded,
@@ -89,6 +90,7 @@ report(
     #[ClusterAttr(true), `cluster = true`],
     #[Color("red"), `color = red`],
     #[Colorscheme("yellow"), `colorscheme = yellow`],
+    #[Fillcolor("red"), `fillcolor = red`],
     #[Fontcolor("xxx"), `fontcolor = xxx`],
     #[Fontname("xxx"), `fontname = xxx`],
     #[Fontsize(4), `fontsize = 4`],
@@ -113,5 +115,51 @@ report(
     #[Target("xxx"), `target = xxx`],
     #[Tooltip("xxx"), `tooltip = xxx`],
     #[URL("xxx"), `url = xxx`],
+    #[UnmatchedClusterAttribute, "/* unmatched cluster attribute */"],
+  ],
+)
+
+report(
+  renderAttributes,
+  "renderAttributes",
+  [
+    #[
+      [Target("xxx"), Tooltip("xxx")],
+      `target = xxx
+tooltip = xxx`,
+    ],
+  ],
+)
+
+report(
+  toString(0),
+  "toString",
+  [
+    #[
+      Cluster("ahoy", [], [], []),
+      `
+  subgraph cluster_0 {
+    label = \"ahoy\";
+    
+    
+    
+  }`,
+    ],
+  ],
+)
+report(
+  renderClusters,
+  "toString",
+  [
+    #[
+      [Cluster("ahoy", [], [], [])],
+      `
+  subgraph cluster_0 {
+    label = \"ahoy\";
+    
+    
+    
+  }`,
+    ],
   ],
 )

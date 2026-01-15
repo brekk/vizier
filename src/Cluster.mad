@@ -5,7 +5,7 @@ import type { Node } from "@/Node"
 import List from "List"
 import { join } from "String"
 
-import { attr } from "@/Dot"
+import { literalAttr } from "@/Dot"
 import { renderEdges } from "@/Edge"
 import { Rect } from "@/Geometry"
 import { renderNodes } from "@/Node"
@@ -104,100 +104,100 @@ export renderClusters = pipe(
 attributeToString :: ClusterAttribute -> String
 export attributeToString = where {
   Area(f) =>
-    attr("area", show(f))
+    literalAttr("area", show(f))
 
   Bb(Rect(a, b, c, d)) =>
-    attr("bb", `${show(a)},${show(b)},${show(c)},${show(d)}`)
+    literalAttr("bb", `${show(a)},${show(b)},${show(c)},${show(d)}`)
 
   Bgcolor(c) =>
-    attr("bgcolor", c)
+    literalAttr("bgcolor", c)
 
   Class(c) =>
-    attr("class", show(c))
+    literalAttr("class", show(c))
 
   ClusterAttr(yes) =>
-    attr("cluster", show(yes))
+    literalAttr("cluster", show(yes))
 
   Color(s) =>
-    attr("color", s)
+    literalAttr("color", s)
 
   Colorscheme(s) =>
-    attr("colorscheme", s)
+    literalAttr("colorscheme", s)
 
   Fillcolor(s) =>
-    attr("fillcolor", s)
+    literalAttr("fillcolor", s)
 
   Fontcolor(s) =>
-    attr("fontcolor", s)
+    literalAttr("fontcolor", s)
 
   Fontname(s) =>
-    attr("fontname", s)
+    literalAttr("fontname", s)
 
   Fontsize(f) =>
-    attr("fontsize", show(f))
+    literalAttr("fontsize", show(f))
 
   Gradientangle(i) =>
-    attr("gradientangle", show(i))
+    literalAttr("gradientangle", show(i))
 
   Href(s) =>
-    attr("href", s)
+    literalAttr("href", s)
 
   Id(s) =>
-    attr("id", s)
+    literalAttr("id", s)
 
   K(f) =>
-    attr("K", show(f))
+    literalAttr("K", show(f))
 
   Label(s) =>
-    attr("label", s)
+    literalAttr("label", s)
 
   Labeljust(j) =>
-    attr("labeljust", justificationToString(j))
+    literalAttr("labeljust", justificationToString(j))
 
   Labelloc(s) =>
-    attr("labelloc", s)
+    literalAttr("labelloc", s)
 
   Layer(s) =>
-    attr("layer", s)
+    literalAttr("layer", s)
 
   Lheight(f) =>
-    attr("lheight", show(f))
+    literalAttr("lheight", show(f))
 
   Lp(s) =>
-    attr("lp", s)
+    literalAttr("lp", s)
 
   Lwidth(f) =>
-    attr("lwidth", show(f))
+    literalAttr("lwidth", show(f))
 
   Margin(f) =>
-    attr("margin", show(f))
+    literalAttr("margin", show(f))
 
   Nojustify(x) =>
-    attr("nojustify", show(x))
+    literalAttr("nojustify", show(x))
 
   Pencolor(c) =>
-    attr("pencolor", c)
+    literalAttr("pencolor", c)
 
   Penwidth(f) =>
-    attr("penwidth", show(f))
+    literalAttr("penwidth", show(f))
 
   Peripheries(i) =>
-    attr("peripheries", show(i))
+    literalAttr("peripheries", show(i))
 
   Sortv(i) =>
-    attr("sortv", show(i))
+    literalAttr("sortv", show(i))
 
   Style(s) =>
-    attr("style", styleLiteralToString(s))
+    literalAttr("style", styleLiteralToString(s))
 
   Target(s) =>
-    attr("target", s)
+    literalAttr("target", s)
 
   Tooltip(s) =>
-    attr("tooltip", s)
+    literalAttr("tooltip", s)
 
   URL(s) =>
-    attr("url", s)
+    literalAttr("url", s)
 
   UnmatchedClusterAttribute =>
     `/* unmatched cluster attribute */`
