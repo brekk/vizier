@@ -415,7 +415,11 @@ class = "string",`,
 report(
   renderNode,
   "renderNode",
-  [#[Node("yo", []), "yo"], #[GlobalNode([Sides(6)]), "node [sides = 6,]\n"]],
+  [
+    #[Node("yo", []), "yo"],
+    #[Node("ahoy", [Class("string")]), `ahoy [class = "string",]\n`],
+    #[GlobalNode([Sides(6)]), "node [sides = 6,]\n"],
+  ],
 )
 
 report(

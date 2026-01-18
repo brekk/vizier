@@ -518,7 +518,7 @@ export renderAttributes = pipe(
 
 export toString = where {
   Edge(links, attrs) =>
-    `${renderLinks(links)}${List.length(attrs) > 0 ? `[${renderAttributes(attrs)}]` : ""};`
+    `${renderLinks(links)}${List.length(attrs) > 0 ? ` [${renderAttributes(attrs)}]` : ""};`
 
   GlobalEdge(attrs) =>
     `edge [${renderAttributes(attrs)}];`

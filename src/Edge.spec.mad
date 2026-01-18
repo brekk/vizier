@@ -336,6 +336,7 @@ report(
   "toString",
   [
     #[Edge(["a", "b"], []), "a -> b;"],
+    #[Edge(["a", "b"], [Style(EdgeStyleDotted)]), "a -> b [style = dotted];"],
     #[GlobalEdge([Style(EdgeStyleDashed)]), "edge [style = dashed];"],
   ],
 )
