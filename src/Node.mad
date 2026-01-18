@@ -4,6 +4,7 @@ import List from "List"
 import { join } from "String"
 
 import { attributeWithDelimiter } from "@/Dot"
+import { rectToString } from "@/Geometry"
 
 
 
@@ -550,148 +551,154 @@ export type NodeAttribute
 
 export attributeToString = where {
   Area(x) =>
-    attr("area", show(x))
+    literalAttr("area", show(x))
 
   Class(x) =>
-    attr("class", show(x))
+    attr("class", x)
 
   Color(x) =>
-    attr("color", show(x))
+    attr("color", x)
 
   Colorscheme(x) =>
-    attr("colorscheme", show(x))
+    attr("colorscheme", x)
 
   Comment(x) =>
-    attr("comment", show(x))
+    attr("comment", x)
 
   Distortion(x) =>
-    attr("distortion", show(x))
+    literalAttr("distortion", show(x))
 
   Fillcolor(x) =>
-    attr("fillcolor", show(x))
+    attr("fillcolor", x)
 
   Fixedsize(x) =>
-    attr("fixedsize", show(x))
+    literalAttr("fixedsize", show(x))
 
   Fontcolor(x) =>
-    attr("fontcolor", show(x))
+    attr("fontcolor", x)
 
   Fontname(x) =>
-    attr("fontname", show(x))
+    attr("fontname", x)
 
   Fontsize(x) =>
-    attr("fontsize", show(x))
+    attr("fontsize", x)
 
   Gradientangle(x) =>
-    attr("gradientangle", show(x))
+    literalAttr("gradientangle", show(x))
 
   Group(x) =>
-    attr("group", show(x))
+    attr("group", x)
 
   Height(x) =>
-    attr("height", show(x))
+    literalAttr("height", show(x))
 
   Href(x) =>
-    attr("href", show(x))
+    attr("href", x)
 
   Id(x) =>
-    attr("id", show(x))
+    attr("id", x)
 
   Image(x) =>
-    attr("image", show(x))
+    attr("image", x)
 
   Imagepos(x) =>
-    attr("imagepos", show(x))
+    literalAttr("imagepos", imagePosToString(x))
 
   Imagescale(x) =>
-    attr("imagescale", show(x))
+    attr("imagescale", x)
 
   Label(x) =>
-    attr("label", show(x))
+    attr("label", x)
 
   Labelloc(x) =>
-    attr("labelloc", show(x))
+    attr("labelloc", x)
 
   Layer(x) =>
-    attr("layer", show(x))
+    attr("layer", x)
 
   Margin(x) =>
-    attr("margin", show(x))
+    literalAttr("margin", show(x))
 
   Nojustify(x) =>
-    attr("nojustify", show(x))
+    literalAttr("nojustify", show(x))
 
   Ordering(x) =>
-    attr("ordering", show(x))
+    attr("ordering", x)
 
   Orientation(x) =>
-    attr("orientation", show(x))
+    literalAttr("orientation", show(x))
 
   Penwidth(x) =>
-    attr("penwidth", show(x))
+    literalAttr("penwidth", show(x))
 
   Peripheries(x) =>
-    attr("peripheries", show(x))
+    literalAttr("peripheries", show(x))
 
   Pin(x) =>
-    attr("pin", show(x))
+    literalAttr("pin", show(x))
 
   Pos(x) =>
-    attr("pos", show(x))
+    attr("pos", x)
 
   Rects(x) =>
-    attr("rects", show(x))
+    literalAttr(
+      "rects",
+      pipe(
+        map(rectToString),
+        join(""),
+      )(x),
+    )
 
   Regular(x) =>
-    attr("regular", show(x))
+    literalAttr("regular", show(x))
 
   Root(x) =>
-    attr("root", show(x))
+    literalAttr("root", show(x))
 
   Samplepoints(x) =>
-    attr("samplepoints", show(x))
+    literalAttr("samplepoints", show(x))
 
   Shape(x) =>
-    attr("shape", shapeToString(x))
+    literalAttr("shape", shapeToString(x))
 
   Showboxes(x) =>
-    attr("showboxes", show(x))
+    literalAttr("showboxes", show(x))
 
   Sides(x) =>
-    attr("sides", show(x))
+    literalAttr("sides", show(x))
 
   Skew(x) =>
-    attr("skew", show(x))
+    literalAttr("skew", show(x))
 
   Sortv(x) =>
-    attr("sortv", show(x))
+    literalAttr("sortv", show(x))
 
   Style(x) =>
     attr("style", styleLiteralToString(x))
 
   Target(x) =>
-    attr("target", show(x))
+    attr("target", x)
 
   Tooltip(x) =>
-    attr("tooltip", show(x))
+    attr("tooltip", x)
 
   URL(x) =>
-    attr("uRL", show(x))
+    attr("url", x)
 
   Vertices(x) =>
-    attr("vertices", show(x))
+    attr("vertices", x)
 
   Width(x) =>
-    attr("width", show(x))
+    literalAttr("width", show(x))
 
   Xlabel(x) =>
-    attr("xlabel", show(x))
+    literalAttr("xlabel", show(x))
 
   Xlp(x) =>
-    attr("xlp", show(x))
+    attr("xlp", x)
 
   Z(x) =>
-    attr("z", show(x))
+    literalAttr("z", show(x))
 
   UnmatchedNodeAttribute =>
     `/* unmatched node attribute */`
@@ -708,27 +715,14 @@ export type Node = Node(String, List NodeAttribute) | GlobalNode(List NodeAttrib
 
 export renderNode = where {
   Node(name, attrs) =>
-    List.length(attrs) > 0 ? `${name} [${renderAttributes(attrs)}]\n` : ``
+    List.length(attrs) > 0 ? `${name} [${renderAttributes(attrs)}]\n` : name
 
   GlobalNode(attrs) =>
     `node [${renderAttributes(attrs)}]\n`
 }
-/*
-  join(
-    `\n${
-      pipe(
-        List.repeat("  "),
-        join(""),
-      )(i)
-    }`,
-  ),
-  */
-repeatIndent = pipe(
-  List.repeat("  "),
-  join(""),
-)
+
 renderNodes :: List Node -> String
 export renderNodes = (x) => pipe(
   map(renderNode),
-  join(``),
+  join(`\n`),
 )(x)

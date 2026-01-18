@@ -1,1 +1,13 @@
+import String from "String"
+
+
+
 export type Rect = Rect(Integer, Integer, Integer, Integer)
+export rectToString = pipe(
+  where {
+    Rect(a, b, c, d) =>
+      [a, b, c, d]
+  },
+  map(show),
+  String.join(","),
+)
