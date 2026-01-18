@@ -1,9 +1,35 @@
 import List from "List"
 import { join } from "String"
 
+import { attr, literalAttr } from "@/Dot"
+
 
 
 export type Direction = Forward | Backward | Bidirectional | NoneDirection
+
+export directionToString = where {
+  Forward =>
+    "forward"
+
+  Backward =>
+    "backward"
+
+  Bidirectional =>
+    "bidirectional"
+
+  _ =>
+    "none"
+}
+
+export stringToDirection = (x) => if (x == "forward") {
+  Forward
+} else if (x == "backward") {
+  Backward
+} else if (x == "bidirectional") {
+  Bidirectional
+} else {
+  NoneDirection
+}
 
 export type PortPosition
   = Central
@@ -76,14 +102,14 @@ export stringToStyle = (x) => if (x == "dashed") {
   EdgeStyleDashed
 } else if (x == "dotted") {
   EdgeStyleDotted
-} else if (x == "solid") {
-  EdgeStyleSolid
+} else if (x == "tapered") {
+  EdgeStyleTapered
 } else if (x == "invis") {
   EdgeStyleInvis
 } else if (x == "bold") {
   EdgeStyleBold
 } else {
-  EdgeStyleTapered
+  EdgeStyleSolid
 }
 
 export type ArrowType
@@ -259,7 +285,7 @@ export type EdgeAttribute
   | Sametail(String)
   | Showboxes(Integer)
   | Style(EdgeStyle)
-  | Tail_lp(String)
+  | TailLp(String)
   | Tailclip(Boolean)
   | Tailhref(String)
   | Taillabel(String)
@@ -277,205 +303,205 @@ export type EdgeAttribute
 
 export attributeToString = where {
   Arrowhead(x) =>
-    `arrowhead = ${arrowToString(x)};`
+    literalAttr("arrowhead", arrowToString(x))
 
   Arrowsize(x) =>
-    `arrowsize = ${show(x)};`
+    literalAttr("arrowsize", show(x))
 
   Arrowtail(x) =>
-    `arrowtail = ${arrowToString(x)};`
+    literalAttr("arrowtail", arrowToString(x))
 
   Class(x) =>
-    `class = ${show(x)};`
+    attr("class", x)
 
   Color(x) =>
-    `color = ${show(x)};`
+    attr("color", x)
 
   Colorscheme(x) =>
-    `colorscheme = ${show(x)};`
+    attr("colorscheme", x)
 
   Comment(x) =>
-    `comment = ${show(x)};`
+    attr("comment", x)
 
   Constraint(x) =>
-    `constraint = ${show(x)};`
+    literalAttr("constraint", show(x))
 
   Decorate(x) =>
-    `decorate = ${show(x)};`
+    literalAttr("decorate", show(x))
 
   Dir(x) =>
-    `dir = ${show(x)};`
+    literalAttr("dir", directionToString(x))
 
   Edgehref(x) =>
-    `edgehref = ${show(x)};`
+    attr("edgehref", x)
 
   Edgetarget(x) =>
-    `edgetarget = ${show(x)};`
+    attr("edgetarget", x)
 
   Edgetooltip(x) =>
-    `edgetooltip = ${show(x)};`
+    attr("edgetooltip", x)
 
   EdgeURL(x) =>
-    `edgeURL = ${show(x)};`
+    attr("edgeURL", x)
 
   Fillcolor(x) =>
-    `fillcolor = ${show(x)};`
+    attr("fillcolor", x)
 
   Fontcolor(x) =>
-    `fontcolor = ${show(x)};`
+    attr("fontcolor", x)
 
   Fontname(x) =>
-    `fontname = ${show(x)};`
+    attr("fontname", x)
 
   Fontsize(x) =>
-    `fontsize = ${show(x)};`
+    literalAttr("fontsize", show(x))
 
   HeadLp(x) =>
-    `head_lp = ${show(x)};`
+    attr("head_lp", x)
 
   Headclip(x) =>
-    `headclip = ${show(x)};`
+    literalAttr("headclip", show(x))
 
   Headhref(x) =>
-    `headhref = ${show(x)};`
+    attr("headhref", x)
 
   Headlabel(x) =>
-    `headlabel = ${show(x)};`
+    attr("headlabel", x)
 
   Headport(x) =>
-    `headport = ${portPositionToString(x)};`
+    attr("headport", portPositionToString(x))
 
   Headtarget(x) =>
-    `headtarget = ${show(x)};`
+    attr("headtarget", x)
 
   Headtooltip(x) =>
-    `headtooltip = ${show(x)};`
+    attr("headtooltip", x)
 
   HeadURL(x) =>
-    `headURL = ${show(x)};`
+    attr("headURL", x)
 
   Href(x) =>
-    `href = ${show(x)};`
+    attr("href", x)
 
   Id(x) =>
-    `id = ${show(x)};`
+    attr("id", x)
 
   Label(x) =>
-    `label = ${show(x)};`
+    attr("label", x)
 
   Labelangle(x) =>
-    `labelangle = ${show(x)};`
+    literalAttr("labelangle", show(x))
 
   Labeldistance(x) =>
-    `labeldistance = ${show(x)};`
+    literalAttr("labeldistance", show(x))
 
   Labelfloat(x) =>
-    `labelfloat = ${show(x)};`
+    literalAttr("labelfloat", show(x))
 
   Labelfontcolor(x) =>
-    `labelfontcolor = ${show(x)};`
+    attr("labelfontcolor", x)
 
   Labelfontname(x) =>
-    `labelfontname = ${show(x)};`
+    attr("labelfontname", x)
 
   Labelfontsize(x) =>
-    `labelfontsize = ${show(x)};`
+    literalAttr("labelfontsize", show(x))
 
   Labelhref(x) =>
-    `labelhref = ${show(x)};`
+    attr("labelhref", x)
 
   Labeltarget(x) =>
-    `labeltarget = ${show(x)};`
+    attr("labeltarget", x)
 
   Labeltooltip(x) =>
-    `labeltooltip = ${show(x)};`
+    attr("labeltooltip", x)
 
   LabelURL(x) =>
-    `labelURL = ${show(x)};`
+    attr("labelURL", x)
 
   Layer(x) =>
-    `layer = ${show(x)};`
+    attr("layer", x)
 
   Len(x) =>
-    `len = ${show(x)};`
+    literalAttr("len", show(x))
 
   Lhead(x) =>
-    `lhead = ${show(x)};`
+    attr("lhead", x)
 
   Lp(x) =>
-    `lp = ${show(x)};`
+    attr("lp", x)
 
   Ltail(x) =>
-    `ltail = ${show(x)};`
+    attr("ltail", x)
 
   Minlen(x) =>
-    `minlen = ${show(x)};`
+    literalAttr("minlen", show(x))
 
   Nojustify(x) =>
-    `nojustify = ${show(x)};`
+    literalAttr("nojustify", show(x))
 
   Penwidth(x) =>
-    `penwidth = ${show(x)};`
+    literalAttr("penwidth", show(x))
 
   Pos(x) =>
-    `pos = ${show(x)};`
+    attr("pos", x)
 
   Radius(x) =>
-    `radius = ${show(x)};`
+    literalAttr("radius", show(x))
 
   Samehead(x) =>
-    `samehead = ${show(x)};`
+    attr("samehead", x)
 
   Sametail(x) =>
-    `sametail = ${show(x)};`
+    attr("sametail", x)
 
   Showboxes(x) =>
-    `showboxes = ${show(x)};`
+    literalAttr("showboxes", show(x))
 
   Style(x) =>
-    `style = ${show(x)};`
+    literalAttr("style", styleToString(x))
 
-  Tail_lp(x) =>
-    `tail_lp = ${show(x)};`
+  TailLp(x) =>
+    attr("tail_lp", x)
 
   Tailclip(x) =>
-    `tailclip = ${show(x)};`
+    literalAttr("tailclip", show(x))
 
   Tailhref(x) =>
-    `tailhref = ${show(x)};`
+    attr("tailhref", x)
 
   Taillabel(x) =>
-    `taillabel = ${show(x)};`
+    attr("taillabel", x)
 
   Tailport(x) =>
-    `tailport = ${portPositionToString(x)};`
+    attr("tailport", portPositionToString(x))
 
   Tailtarget(x) =>
-    `tailtarget = ${show(x)};`
+    attr("tailtarget", x)
 
   Tailtooltip(x) =>
-    `tailtooltip = ${show(x)};`
+    attr("tailtooltip", x)
 
   TailURL(x) =>
-    `tailURL = ${show(x)};`
+    attr("tailURL", x)
 
   Target(x) =>
-    `target = ${show(x)};`
+    attr("target", x)
 
   Tooltip(x) =>
-    `tooltip = ${show(x)};`
+    attr("tooltip", x)
 
   URL(x) =>
-    `uRL = ${show(x)};`
+    attr("url", x)
 
   Weight(x) =>
-    `weight = ${show(x)};`
+    literalAttr("weight", show(x))
 
   Xlabel(x) =>
-    `xlabel = ${show(x)};`
+    attr("xlabel", x)
 
   Xlp(x) =>
-    `xlp = ${show(x)};`
+    attr("xlp", x)
 
   UnmatchedEdgeAttribute =>
     `/* unmatched edge attribute */`
