@@ -18,4 +18,4 @@ export replaceNewlineIndent = replaceIndentWithConfig("\n")
 export replaceNewline = replaceNewlineIndent(" ")
 
 hexish :: String -> Boolean
-export hexish = (x) => String.match("\b[0-9A-Fa-f]{6}\b", x)
+export hexish = String.match("^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")

@@ -11,6 +11,14 @@ import { Vizier, toString } from "@/Vizier"
 
 
 main = () => {
+  IO.pTrace("-->", Color.toLiteral("000"))
+  IO.pTrace("-->", Color.toLiteral("badcaf"))
+  IO.pTrace("-->", Color.toLiteral("#abcdef"))
+  IO.pTrace("---", Color.toLiteral("vizier"))
+  IO.pTrace("---", Color.toLiteral("1234567"))
+  IO.pTrace("---", Color.toLiteral("12"))
+  IO.pTrace("x11", Color.toLiteral("red"))
+  IO.pTrace("x11", Color.toLiteral("violetred3"))
   // , Node("end", [NA_shape(ShapeMsquare)])]
   nodes = [
     N.GlobalNode([N.Fontname("Helvetica Neue")]),
