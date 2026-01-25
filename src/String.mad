@@ -16,3 +16,6 @@ export indent = indentByDelimiter(" ")
 export replaceIndentWithConfig = (r, t, i, x) => String.replace(r, indenture(t, i), x)
 export replaceNewlineIndent = replaceIndentWithConfig("\n")
 export replaceNewline = replaceNewlineIndent(" ")
+
+hexish :: String -> Boolean
+export hexish = (x) => String.match("\b[0-9A-Fa-f]{6}\b", x)

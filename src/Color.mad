@@ -1,12 +1,13 @@
 import type { Maybe } from "Maybe"
 
-import type { ColorLiteral } from "@/GVColor"
+import type { GVColorLiteral } from "@/GVColor"
 
 import List from "List"
 import { Just, Nothing, fromMaybe } from "Maybe"
 import Tuple from "Tuple"
 
 import C from "@/GVColor"
+import { hexish } from "@/String"
 
 
 
@@ -697,12 +698,14 @@ export COLORS = map(where { #[_, s] => s }, COLOR_MAP)
 validColor :: String -> Boolean
 export validColor = List.includes($, COLORS)
 
-toLiteral :: String -> Maybe ColorLiteral
-export toLiteral = (ref) => if (!validColor(ref)) {
-  Nothing
-} else {
-  pipe(
-    List.find(where { #[_, check] => check == ref }),
-    map(Tuple.fst),
-  )(COLOR_MAP)
+toLiteral :: String -> Maybe GVColorLiteral
+export toLiteral = (ref) => {
+  return if (!validColor(ref)) {
+    Nothing
+  } else {
+    pipe(
+      List.find(where { #[_, check] => check == ref }),
+      map(Tuple.fst),
+    )(COLOR_MAP)
+  }
 }

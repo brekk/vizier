@@ -1,0 +1,4 @@
+export alias Config = { delimiters :: { cluster :: { attributes :: String } }, logging :: String }
+
+DEFAULT_CONFIG :: Config
+export DEFAULT_CONFIG = { delimiters: { cluster: { attributes: "\n" } }, logging: "vizier:*" }

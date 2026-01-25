@@ -1,0 +1,11 @@
+import Party from "PartyBus"
+
+
+
+VIZ = "vizier"
+export TAGS = {
+  info: Party.tagWithScope(VIZ, ["info"]),
+  detail: Party.tagWithScope(VIZ, ["detail"]),
+}
+
+export log = { detail: Party.env(TAGS.detail), info: Party.env(TAGS.info) }

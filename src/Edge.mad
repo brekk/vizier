@@ -1,6 +1,7 @@
 import List from "List"
 import { join } from "String"
 
+import { DEFAULT_CONFIG } from "@/Config"
 import { attr, literalAttr } from "@/Dot"
 
 
@@ -524,7 +525,9 @@ export toString = where {
     `edge [${renderAttributes(attrs)}];`
 }
 
-export renderEdges = pipe(
+export renderEdgesWithConfig = (config) => pipe(
   map(toString),
   join("\n  "),
 )
+
+export renderEdges = renderEdgesWithConfig(DEFAULT_CONFIG)

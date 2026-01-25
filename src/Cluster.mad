@@ -1,3 +1,4 @@
+import type { Config } from "@/Config"
 import type { Edge } from "@/Edge"
 import type { Rect } from "@/Geometry"
 import type { Node } from "@/Node"
@@ -5,11 +6,11 @@ import type { Node } from "@/Node"
 import List from "List"
 import { join } from "String"
 
+import { DEFAULT_CONFIG } from "@/Config"
 import { literalAttr } from "@/Dot"
 import { renderEdges } from "@/Edge"
 import { Rect } from "@/Geometry"
 import { renderNodes } from "@/Node"
-import { indent } from "@/String"
 
 
 
@@ -203,8 +204,20 @@ export attributeToString = where {
     `/* unmatched cluster attribute */`
 }
 
-renderAttributes :: List ClusterAttribute -> String
-export renderAttributes = pipe(
+renderAttributesWithDelimiter :: String -> List ClusterAttribute -> String
+export renderAttributesWithDelimiter = (d, x) => pipe(
   map(attributeToString),
-  join("\n"),
+  join(d),
+)(x)
+
+
+renderAttributesWithConfig :: Config -> List ClusterAttribute -> String
+export renderAttributesWithConfig = (conf, x) => renderAttributesWithDelimiter(
+  conf.delimiters.cluster.attributes,
+  x,
 )
+
+// export renderAttributes = renderAttributesWithDelimiter("\n")
+
+renderAttributes :: List ClusterAttribute -> String
+export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
