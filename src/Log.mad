@@ -1,11 +1,29 @@
+import List from "List"
+
 import Party from "PartyBus"
 
 
 
 VIZ = "vizier"
+vvv = Party.tagWithScope(VIZ)
+scoped = (x) => vvv([x])
+
 export TAGS = {
-  info: Party.tagWithScope(VIZ, ["info"]),
-  detail: Party.tagWithScope(VIZ, ["detail"]),
+  init: scoped("init"),
+  info: scoped("info"),
+  detail: scoped("detail"),
+  render: scoped("render"),
+  renderCluster: vvv(["render", "cluster"]),
+  renderEdge: vvv(["render", "edge"]),
+  renderGraph: vvv(["render", "graph"]),
 }
 
-export log = { detail: Party.env(TAGS.detail), info: Party.env(TAGS.info) }
+export log = {
+  render: Party.env(TAGS.render),
+  renderCluster: Party.env(TAGS.renderCluster),
+  renderGraph: Party.env(TAGS.render),
+  renderEdge: Party.env(TAGS.renderEdge),
+  detail: Party.env(TAGS.detail),
+  info: Party.env(TAGS.info),
+  init: Party.env(TAGS.init),
+}
