@@ -2,7 +2,7 @@ export alias Config = {
   expressions :: {
     cluster :: { attributes :: String, separator :: String },
     edge :: { attributeJoin :: String, join :: String, link :: String },
-    graph :: { also :: String, attributes :: String, separator :: String },
+    graph :: { attributeEnd :: String, attributes :: String, separator :: String },
     node :: { attributeEnd :: String, attributeJoin :: String, join :: String },
   },
   logging :: String,
@@ -12,7 +12,7 @@ DEFAULT_CONFIG :: Config
 export DEFAULT_CONFIG = {
   expressions: {
     cluster: { separator: "\n", attributes: "\n" },
-    graph: { separator: "\n", attributes: "\n", also: ";" },
+    graph: { separator: "\n", attributes: "\n", attributeEnd: ";" },
     node: { attributeEnd: ",", attributeJoin: "\n", join: "\n" },
     edge: { link: " -> ", join: "\n", attributeJoin: "\n" },
   },

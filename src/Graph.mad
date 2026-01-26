@@ -301,7 +301,7 @@ export type GraphAttribute
   | UnknownGraphAttribute
 
 
-attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.graph.also)
+attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.graph.attributeEnd)
 literalAttr = attribute(true)
 attr = attribute(false)
 
