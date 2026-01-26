@@ -1,14 +1,16 @@
+import type { Config } from "@/Config"
 import type { Rect } from "@/Geometry"
 
 import List from "List"
 import { join } from "String"
 
+import { DEFAULT_CONFIG } from "@/Config"
 import { attributeWithDelimiter } from "@/Dot"
 import { rectToString } from "@/Geometry"
 
 
 
-attribute = attributeWithDelimiter(",")
+attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.node.attributeEnd)
 literalAttr = attribute(true)
 attr = attribute(false)
 
@@ -704,25 +706,33 @@ export attributeToString = where {
     `/* unmatched node attribute */`
 }
 
-renderAttributes :: List NodeAttribute -> String
-export renderAttributes = pipe(
+renderAttributesWithConfig :: Config -> List NodeAttribute -> String
+export renderAttributesWithConfig = (config, x) => pipe(
   map(attributeToString),
-  join("\n"),
-)
+  join(config.expressions.node.attributeJoin),
+)(x)
+
+
+renderAttributes :: List NodeAttribute -> String
+export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
 
 
 export type Node = Node(String, List NodeAttribute) | GlobalNode(List NodeAttribute)
 
 export renderNode = where {
   Node(name, attrs) =>
-    List.length(attrs) > 0 ? `${name} [${renderAttributes(attrs)}]\n` : name
+    List.length(attrs) > 0 ? `${name} [${renderAttributes(attrs)}]` : name
 
   GlobalNode(attrs) =>
-    `node [${renderAttributes(attrs)}]\n`
+    renderNode(Node("node", attrs))
 }
 
-renderNodes :: List Node -> String
-export renderNodes = (x) => pipe(
+renderNodesWithConfig :: Config -> List Node -> String
+export renderNodesWithConfig = (config, x) => pipe(
   map(renderNode),
-  join(`\n`),
+  join(config.expressions.node.join),
 )(x)
+
+
+renderNodes :: List Node -> String
+export renderNodes = renderNodesWithConfig(DEFAULT_CONFIG)

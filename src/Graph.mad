@@ -1,6 +1,10 @@
+import type { Config } from "@/Config"
 import type { Rect } from "@/Geometry"
 
 import { join } from "String"
+
+import { DEFAULT_CONFIG } from "@/Config"
+import { attributeWithDelimiter } from "@/Dot"
 
 
 
@@ -296,240 +300,246 @@ export type GraphAttribute
   | Xdotversion(String)
   | UnknownGraphAttribute
 
+
+attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.graph.also)
+literalAttr = attribute(true)
+attr = attribute(false)
+
+
 export attributeToString = where {
   Damping(f) =>
-    `damping = ${show(f)};`
+    attr("damping", show(f))
 
   K(f) =>
-    `k = ${show(f)};`
+    attr("k", show(f))
 
   TBbalance(s) =>
-    `tbbalance = ${show(s)};`
+    attr("tbbalance", show(s))
 
   URL(s) =>
-    `url = ${show(s)};`
+    attr("url", show(s))
 
   Background(s) =>
-    `background = ${show(s)};`
+    attr("background", show(s))
 
   Bb(rect) =>
-    `bb = ${show(rect)};`
+    attr("bb", show(rect))
 
   Beautify(b) =>
-    `beautify = ${show(b)};`
+    attr("beautify", show(b))
 
   Bgcolor(s) =>
-    `bgcolor = ${show(s)};`
+    attr("bgcolor", show(s))
 
   Center(b) =>
-    `center = ${show(b)};`
+    attr("center", show(b))
 
   Charset(s) =>
-    `charset = ${show(s)};`
+    attr("charset", show(s))
 
   Class(s) =>
-    `class = ${show(s)};`
+    attr("class", show(s))
 
   Clusterrank(clustermode) =>
-    `clusterrank = ${clusterModeToString(clustermode)};`
+    attr("clusterrank", clusterModeToString(clustermode))
 
   Colorscheme(s) =>
-    `colorscheme = ${show(s)};`
+    attr("colorscheme", show(s))
 
   Comment(s) =>
-    `comment = ${show(s)};`
+    attr("comment", show(s))
 
   Compound(b) =>
-    `compound = ${show(b)};`
+    attr("compound", show(b))
 
   Concentrate(b) =>
-    `concentrate = ${show(b)};`
+    attr("concentrate", show(b))
 
   Defaultdist(f) =>
-    `defaultdist = ${show(f)};`
+    attr("defaultdist", show(f))
 
   Dim(i) =>
-    `dim = ${show(i)};`
+    attr("dim", show(i))
 
   Dimen(i) =>
-    `dimen = ${show(i)};`
+    attr("dimen", show(i))
 
   Diredgeconstraints(s, b) =>
-    `diredgeconstraints = ${show(s)};`
+    attr("diredgeconstraints", show(s))
 
   Dpi(f) =>
-    `dpi = ${show(f)};`
+    attr("dpi", show(f))
 
   Epsilon(f) =>
-    `epsilon = ${show(f)};`
+    attr("epsilon", show(f))
 
   Esep(r) =>
-    `esep = ${show(r)};`
+    attr("esep", show(r))
 
   Fontcolor(s) =>
-    `fontcolor = ${show(s)};`
+    attr("fontcolor", show(s))
 
   Fontname(s) =>
-    `fontname = ${show(s)};`
+    attr("fontname", show(s))
 
   Fontnames(s) =>
-    `fontnames = ${show(s)};`
+    attr("fontnames", show(s))
 
   Fontpath(s) =>
-    `fontpath = ${show(s)};`
+    attr("fontpath", show(s))
 
   Fontsize(f) =>
-    `fontsize = ${show(f)};`
+    attr("fontsize", show(f))
 
   Forcelabels(b) =>
-    `forcelabels = ${show(b)};`
+    attr("forcelabels", show(b))
 
   Gradientangle(i) =>
-    `gradientangle = ${show(i)};`
+    attr("gradientangle", show(i))
 
   Href(s) =>
-    `href = ${show(s)};`
+    attr("href", show(s))
 
   Id(s) =>
-    `id = ${show(s)};`
+    attr("id", show(s))
 
   Imagepath(s) =>
-    `imagepath = ${show(s)};`
+    attr("imagepath", show(s))
 
   Inputscale(f) =>
-    `inputscale = ${show(f)};`
+    attr("inputscale", show(f))
 
   Label(s) =>
-    `label = ${show(s)};`
+    attr("label", show(s))
 
   LabelScheme(i) =>
-    `labelscheme = ${show(i)};`
+    attr("labelscheme", show(i))
 
   Labeljust(s) =>
-    `labeljust = ${show(s)};`
+    attr("labeljust", show(s))
 
   Labelloc(s) =>
-    `labelloc = ${show(s)};`
+    attr("labelloc", show(s))
 
   Landscape(b) =>
-    `landscape = ${show(b)};`
+    attr("landscape", show(b))
 
   Layerlistsep(s) =>
-    `layerlistsep = ${show(s)};`
+    attr("layerlistsep", show(s))
 
   Layers(s) =>
-    `layers = ${show(s)};`
+    attr("layers", show(s))
 
   Layerselect(s) =>
-    `layerselect = ${show(s)};`
+    attr("layerselect", show(s))
 
   Layersep(s) =>
-    `layersep = ${show(s)};`
+    attr("layersep", show(s))
 
   Layout(layout) =>
-    `layout = ${layoutToString(layout)};`
+    attr("layout", layoutToString(layout))
 
   Levels(i) =>
-    `levels = ${show(i)};`
+    attr("levels", show(i))
 
   Levelsgap(f) =>
-    `levelsgap = ${show(f)};`
+    attr("levelsgap", show(f))
 
   Lheight(f) =>
-    `lheight = ${show(f)};`
+    attr("lheight", show(f))
 
   Linelength(i) =>
-    `linelength = ${show(i)};`
+    attr("linelength", show(i))
 
   Lp(gpoint) =>
-    `lp = ${show(gpoint)};`
+    attr("lp", show(gpoint))
 
   Lwidth(f) =>
-    `lwidth = ${show(f)};`
+    attr("lwidth", show(f))
 
   Margin(f) =>
-    `margin = ${show(f)};`
+    attr("margin", show(f))
 
   Maxiter(i) =>
-    `maxiter = ${show(i)};`
+    attr("maxiter", show(i))
 
   Mclimit(f) =>
-    `mclimit = ${show(f)};`
+    attr("mclimit", show(f))
 
   Mindist(f) =>
-    `mindist = ${show(f)};`
+    attr("mindist", show(f))
 
   Mode(layoutmode) =>
-    `mode = ${layoutModeToString(layoutmode)};`
+    attr("mode", layoutModeToString(layoutmode))
 
   Model(s) =>
-    `model = ${show(s)};`
+    attr("model", show(s))
 
   Newrank(b) =>
-    `newrank = ${show(b)};`
+    attr("newrank", show(b))
 
   Nodesep(f) =>
-    `nodesep = ${show(f)};`
+    attr("nodesep", show(f))
 
   Nojustify(b) =>
-    `nojustify = ${show(b)};`
+    attr("nojustify", show(b))
 
   Normalize(f) =>
-    `normalize = ${show(f)};`
+    attr("normalize", show(f))
 
   Notranslate(b) =>
-    `notranslate = ${show(b)};`
+    attr("notranslate", show(b))
 
   Nslimit(f) =>
-    `nslimit = ${show(f)};`
+    attr("nslimit", show(f))
 
   Nslimit1(f) =>
-    `nslimit1 = ${show(f)};`
+    attr("nslimit1", show(f))
 
   Oneblock(b) =>
-    `oneblock = ${show(b)};`
+    attr("oneblock", show(b))
 
   Ordering(s) =>
-    `ordering = ${show(s)};`
+    attr("ordering", show(s))
 
   Orientation(f) =>
-    `orientation = ${show(f)};`
+    attr("orientation", show(f))
 
   Outputorder(outputmode) =>
-    `outputorder = ${outputModeToString(outputmode)};`
+    attr("outputorder", outputModeToString(outputmode))
 
   Overlap(s) =>
-    `overlap = ${show(s)};`
+    attr("overlap", show(s))
 
   OverlapScaling(f) =>
-    `overlapscaling = ${show(f)};`
+    attr("overlapscaling", show(f))
 
   OverlapShrink(b) =>
-    `overlapshrink = ${show(b)};`
+    attr("overlapshrink", show(b))
 
   Pack(b) =>
-    `pack = ${show(b)};`
+    attr("pack", show(b))
 
   Packmode(packmode) =>
-    `packmode = ${show(packmode)};`
+    attr("packmode", show(packmode))
 
   Pad(f) =>
-    `pad = ${show(f)};`
+    attr("pad", show(f))
 
   Page(f) =>
-    `page = ${show(f)};`
+    attr("page", show(f))
 
   Pagedir(pagedir) =>
-    `pagedir = ${show(pagedir)};`
+    attr("pagedir", show(pagedir))
 
   Quadtree(quadtype) =>
-    `quadtree = ${show(quadtype)};`
+    attr("quadtree", show(quadtype))
 
   Quantum(f) =>
-    `quantum = ${show(f)};`
+    attr("quantum", show(f))
 
   Rankdir(r) =>
-    `rankdir = ${show(r)};`
+    attr("rankdir", show(r))
 
   Ranksep(l) =>
     `ranksep = ${
@@ -540,85 +550,88 @@ export attributeToString = where {
     }";`
 
   Ratio(f) =>
-    `ratio = ${show(f)};`
+    attr("ratio", show(f))
 
   Remincross(b) =>
-    `remincross = ${show(b)};`
+    attr("remincross", show(b))
 
   Repulsiveforce(f) =>
-    `repulsiveforce = ${show(f)};`
+    attr("repulsiveforce", show(f))
 
   Resolution(f) =>
-    `resolution = ${show(f)};`
+    attr("resolution", show(f))
 
   Root(s) =>
-    `root = ${show(s)};`
+    attr("root", show(s))
 
   Rotate(i) =>
-    `rotate = ${show(i)};`
+    attr("rotate", show(i))
 
   Rotation(f) =>
-    `rotation = ${show(f)};`
+    attr("rotation", show(f))
 
   Scale(f) =>
-    `scale = ${show(f)};`
+    attr("scale", show(f))
 
   Searchsize(i) =>
-    `searchsize = ${show(i)};`
+    attr("searchsize", show(i))
 
   Sep(f) =>
-    `sep = ${show(f)};`
+    attr("sep", show(f))
 
   Showboxes(i) =>
-    `showboxes = ${show(i)};`
+    attr("showboxes", show(i))
 
   Size(f) =>
-    `size = ${show(f)};`
+    attr("size", show(f))
 
   Smoothing(sm) =>
-    `smoothing = ${smoothTypeToString(sm)};`
+    attr("smoothing", smoothTypeToString(sm))
 
   Sortv(i) =>
-    `sortv = ${show(i)};`
+    attr("sortv", show(i))
 
   Splines(s) =>
-    `splines = ${show(s)};`
+    attr("splines", show(s))
 
   Start(starttype) =>
-    `start = ${show(starttype)};`
+    attr("start", show(starttype))
 
   Style(s) =>
-    `style = ${show(s)};`
+    attr("style", show(s))
 
   Stylesheet(s) =>
-    `stylesheet = ${show(s)};`
+    attr("stylesheet", show(s))
 
   Target(s) =>
-    `target = ${show(s)};`
+    attr("target", show(s))
 
   Tooltip(s) =>
-    `tooltip = ${show(s)};`
+    attr("tooltip", show(s))
 
   Truecolor(b) =>
-    `truecolor = ${show(b)};`
+    attr("truecolor", show(b))
 
   Viewport(s) =>
-    `viewport = ${show(s)};`
+    attr("viewport", show(s))
 
   VoroMargin(f) =>
-    `voromargin = ${show(f)};`
+    attr("voromargin", show(f))
 
   Xdotversion(s) =>
-    `xdotversion = ${show(s)};`
+    attr("xdotversion", show(s))
 
   UnknownGraphAttribute =>
     `/* unknown graph attribute */`
 }
 
-export renderAttributes = pipe(
+renderAttributesWithConfig :: Config -> List GraphAttribute -> String
+export renderAttributesWithConfig = (config, x) => pipe(
   map(attributeToString),
-  join("\n"),
-)
+  join(config.expressions.graph.attributes),
+)(x)
+
+export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
 
 export type Graph = GlobalGraph(List GraphAttribute)
 export toString = where {

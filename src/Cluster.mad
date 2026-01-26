@@ -96,11 +96,15 @@ export toString = (i, c) => where(c) {
   }`
 }
 
-renderClusters :: List Cluster -> String
-export renderClusters = pipe(
+renderClustersWithConfig :: Config -> List Cluster -> String
+export renderClustersWithConfig = (config, raw) => pipe(
   List.mapWithIndex((x, i) => toString(i, x)),
-  join("\n"),
-)
+  join(config.expressions.cluster.separator),
+)(raw)
+
+renderClusters :: List Cluster -> String
+export renderClusters = renderClustersWithConfig(DEFAULT_CONFIG)
+
 
 attributeToString :: ClusterAttribute -> String
 export attributeToString = where {
@@ -212,12 +216,10 @@ export renderAttributesWithDelimiter = (d, x) => pipe(
 
 
 renderAttributesWithConfig :: Config -> List ClusterAttribute -> String
-export renderAttributesWithConfig = (conf, x) => renderAttributesWithDelimiter(
-  conf.delimiters.cluster.attributes,
+export renderAttributesWithConfig = (config, x) => renderAttributesWithDelimiter(
+  config.expressions.cluster.attributes,
   x,
 )
-
-// export renderAttributes = renderAttributesWithDelimiter("\n")
 
 renderAttributes :: List ClusterAttribute -> String
 export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
