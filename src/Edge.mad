@@ -3,11 +3,11 @@ import { join } from "String"
 
 import { DEFAULT_CONFIG } from "@/Config"
 import { attr, literalAttr } from "@/Dot"
+import _String from "@/String"
 
 
 
 export type Direction = Forward | Backward | Bidirectional | NoneDirection
-
 export directionToString = where {
   Forward =>
     "forward"
@@ -21,7 +21,6 @@ export directionToString = where {
   _ =>
     "none"
 }
-
 export stringToDirection = (x) => if (x == "forward") {
   Forward
 } else if (x == "backward") {
@@ -31,7 +30,6 @@ export stringToDirection = (x) => if (x == "forward") {
 } else {
   NoneDirection
 }
-
 export type PortPosition
   = Central
   | East
@@ -42,7 +40,6 @@ export type PortPosition
   | South
   | SouthEast
   | SouthWest
-
 export portPositionToString = where {
   South =>
     "s"
@@ -71,7 +68,6 @@ export portPositionToString = where {
   PortGap =>
     "-"
 }
-
 export type EdgeStyle
   = EdgeStyleDashed
   | EdgeStyleDotted
@@ -79,7 +75,6 @@ export type EdgeStyle
   | EdgeStyleInvis
   | EdgeStyleBold
   | EdgeStyleTapered
-
 export styleToString = where {
   EdgeStyleDashed =>
     "dashed"
@@ -112,7 +107,6 @@ export stringToStyle = (x) => if (x == "dashed") {
 } else {
   EdgeStyleSolid
 }
-
 export type ArrowType
   = ArrowNormal
   | ArrowInv
@@ -133,7 +127,6 @@ export type ArrowType
   | ArrowHalfopen
   | ArrowVee
   | ArrowBox
-
 export arrowToString = where {
   ArrowNormal =>
     "normal"
@@ -231,7 +224,6 @@ export stringToArrow = (x) => if (x == "box") {
 } else {
   ArrowNormal
 }
-
 export type EdgeAttribute
   = Arrowhead(ArrowType)
   | Arrowsize(Float)
@@ -301,7 +293,6 @@ export type EdgeAttribute
   | Xlabel(String)
   | Xlp(String)
   | UnmatchedEdgeAttribute
-
 export attributeToString = where {
   Arrowhead(x) =>
     literalAttr("arrowhead", arrowToString(x))
@@ -352,7 +343,7 @@ export attributeToString = where {
     attr("fontcolor", x)
 
   Fontname(x) =>
-    attr("fontname", x)
+    attr("fontname", _String.doubleToSingleQuote(x))
 
   Fontsize(x) =>
     literalAttr("fontsize", show(x))
@@ -507,18 +498,14 @@ export attributeToString = where {
   UnmatchedEdgeAttribute =>
     `/* unmatched edge attribute */`
 }
-
 export type Edge = Edge(List String, List EdgeAttribute) | GlobalEdge(List EdgeAttribute)
-
 export renderLinksWithConfig = (config) => join(config.expressions.edge.link)
 export renderLinks = renderLinksWithConfig(DEFAULT_CONFIG)
-
 export renderAttributesWithConfig = (config, x) => pipe(
   map(attributeToString),
   join(config.expressions.edge.attributeJoin),
 )(x)
 export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
-
 export toString = where {
   Edge(links, attrs) =>
     `${renderLinks(links)}${List.length(attrs) > 0 ? ` [${renderAttributes(attrs)}]` : ""};`
@@ -526,10 +513,8 @@ export toString = where {
   GlobalEdge(attrs) =>
     `edge [${renderAttributes(attrs)}];`
 }
-
 export renderEdgesWithConfig = (config) => pipe(
   map(toString),
   join(config.expressions.edge.join),
 )
-
 export renderEdges = renderEdgesWithConfig(DEFAULT_CONFIG)

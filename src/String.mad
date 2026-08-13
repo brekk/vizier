@@ -7,15 +7,14 @@ export indenture = (t, i) => pipe(
   List.repeat(t),
   String.join(""),
 )(i)
-
 indentByDelimiter :: String -> Integer -> String -> String
 export indentByDelimiter = (t, i, x) => indenture(t, i) ++ x
-
 export indent = indentByDelimiter(" ")
-
 export replaceIndentWithConfig = (r, t, i, x) => String.replace(r, indenture(t, i), x)
 export replaceNewlineIndent = replaceIndentWithConfig("\n")
 export replaceNewline = replaceNewlineIndent(" ")
-
 hexish :: String -> Boolean
 export hexish = String.match("^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
+unquote :: String -> String
+export unquote = String.replace(`"`, `"`)
+export doubleToSingleQuote = String.replace(`"`, `'`)

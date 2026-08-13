@@ -2,19 +2,19 @@ import type { Config } from "@/Config"
 import type { Rect } from "@/Geometry"
 
 import List from "List"
+import String from "String"
 import { join } from "String"
 
 import { DEFAULT_CONFIG } from "@/Config"
 import { attributeWithDelimiter } from "@/Dot"
 import { rectToString } from "@/Geometry"
+import _String from "@/String"
 
 
 
 attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.node.attributeEnd)
 literalAttr = attribute(true)
 attr = attribute(false)
-
-
 export type NodeStyle
   = NodeStyleDashed
   | NodeStyleDotted
@@ -26,7 +26,6 @@ export type NodeStyle
   | NodeStyleWedged
   | NodeStyleDiagonals
   | NodeStyleRounded
-
 export styleLiteralToString = where {
   NodeStyleDashed =>
     "dashed"
@@ -79,8 +78,6 @@ export stringToStyleLiteral = (x) => if (x == "dashed") {
 } else {
   NodeStyleRounded
 }
-
-
 export type NodeShape
   = ShapeBox
   | ShapePolygon
@@ -141,7 +138,6 @@ export type NodeShape
   | ShapeRarrow
   | ShapeLarrow
   | ShapeLpromoter
-
 export shapeToString = where {
   ShapeBox =>
     "box"
@@ -320,7 +316,6 @@ export shapeToString = where {
   ShapeLpromoter =>
     "lpromoter"
 }
-
 export stringToShape = (x) => if (x == "box") {
   ShapeBox
 } else if (x == "polygon") {
@@ -440,7 +435,6 @@ export stringToShape = (x) => if (x == "box") {
 } else {
   ShapeLpromoter
 }
-
 export type ImagePos
   = IPosTL
   | IPosTC
@@ -451,7 +445,6 @@ export type ImagePos
   | IPosBL
   | IPosBC
   | IPosBR
-
 export imagePosToString = where {
   IPosTL =>
     "TL"
@@ -499,7 +492,6 @@ export stringToImagePos = (x) => if (x == "TL") {
 } else {
   IPosBR
 }
-
 export type NodeAttribute
   = Area(Float)
   | Class(String)
@@ -550,7 +542,6 @@ export type NodeAttribute
   | Xlp(String)
   | Z(Float)
   | UnmatchedNodeAttribute
-
 export attributeToString = where {
   Area(x) =>
     literalAttr("area", show(x))
@@ -580,7 +571,7 @@ export attributeToString = where {
     attr("fontcolor", x)
 
   Fontname(x) =>
-    attr("fontname", x)
+    attr("fontname", _String.doubleToSingleQuote(x))
 
   Fontsize(x) =>
     attr("fontsize", x)
@@ -705,20 +696,14 @@ export attributeToString = where {
   UnmatchedNodeAttribute =>
     `/* unmatched node attribute */`
 }
-
 renderAttributesWithConfig :: Config -> List NodeAttribute -> String
 export renderAttributesWithConfig = (config, x) => pipe(
   map(attributeToString),
   join(config.expressions.node.attributeJoin),
 )(x)
-
-
 renderAttributes :: List NodeAttribute -> String
 export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
-
-
 export type Node = Node(String, List NodeAttribute) | GlobalNode(List NodeAttribute)
-
 export renderNode = where {
   Node(name, attrs) =>
     List.length(attrs) > 0 ? `${name} [${renderAttributes(attrs)}]` : name
@@ -726,13 +711,10 @@ export renderNode = where {
   GlobalNode(attrs) =>
     renderNode(Node("node", attrs))
 }
-
 renderNodesWithConfig :: Config -> List Node -> String
 export renderNodesWithConfig = (config, x) => pipe(
   map(renderNode),
   join(config.expressions.node.join),
 )(x)
-
-
 renderNodes :: List Node -> String
 export renderNodes = renderNodesWithConfig(DEFAULT_CONFIG)

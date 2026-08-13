@@ -5,6 +5,7 @@ import { join } from "String"
 
 import { DEFAULT_CONFIG } from "@/Config"
 import { attributeWithDelimiter } from "@/Dot"
+import _String from "@/String"
 
 
 
@@ -17,7 +18,6 @@ export type Layout
   | LayoutTwopi
   | LayoutOsage
   | LayoutPatchwork
-
 layoutToString :: Layout -> String
 export layoutToString = where {
   LayoutDot =>
@@ -44,7 +44,6 @@ export layoutToString = where {
   LayoutPatchwork =>
     "patchwork"
 }
-
 export stringToLayout = (x) => if (x == "neato") {
   LayoutNeato
 } else if (x == "fdp") {
@@ -62,9 +61,7 @@ export stringToLayout = (x) => if (x == "neato") {
 } else {
   LayoutDot
 }
-
 export type LayoutMode = NeatoMajor | NeatoKK | NeatoSGD | NeatoHier | NeatoIpSep
-
 export layoutModeToString = where {
   NeatoMajor =>
     "major"
@@ -81,11 +78,8 @@ export layoutModeToString = where {
   NeatoIpSep =>
     "ipsep"
 }
-
 export alias GPoint = String
-
 export alias RelativeNumber = String
-
 export type ClusterMode = ClusterModeLocal | ClusterModeGlobal | ClusterModeNone
 export clusterModeToString = where {
   ClusterModeLocal =>
@@ -97,7 +91,6 @@ export clusterModeToString = where {
   ClusterModeNone =>
     "none"
 }
-
 export type OutputMode = OutputBreadthFirst | OutputNodesFirst | OutputEdgesFirst
 export outputModeToString = where {
   OutputBreadthFirst =>
@@ -109,7 +102,6 @@ export outputModeToString = where {
   OutputEdgesFirst =>
     "edgesfirst"
 }
-
 export type PackMode = PackNode | PackCluster | PackGraph | PackArray(List String)
 export type PageDir
   = PageDirBL
@@ -120,7 +112,6 @@ export type PageDir
   | PageDirRT
   | PageDirLB
   | PageDirLT
-
 export pageDirToString = where {
   PageDirBL =>
     "BL"
@@ -146,7 +137,6 @@ export pageDirToString = where {
   PageDirLT =>
     "LT"
 }
-
 export type SmoothType
   = SmoothNone
   | SmoothAvgDist
@@ -155,7 +145,6 @@ export type SmoothType
   | SmoothRng
   | SmoothSpring
   | SmoothTriangle
-
 export smoothTypeToString = where {
   SmoothNone =>
     "none"
@@ -178,8 +167,6 @@ export smoothTypeToString = where {
   SmoothTriangle =>
     "triangle"
 }
-
-
 export type QuadType = QuadNormal | QuadFast | QuadNone
 export quadTypeToString = where {
   QuadNormal =>
@@ -193,7 +180,6 @@ export quadTypeToString = where {
 }
 export type StartType = StartRegular | StartSelf | StartRandom
 export type RankDir = RankDirTB | RankDirLR | RankDirBT | RankDirRL
-
 export type GraphAttribute
   = Damping(Float)
   | K(Float)
@@ -299,13 +285,9 @@ export type GraphAttribute
   | VoroMargin(Float)
   | Xdotversion(String)
   | UnknownGraphAttribute
-
-
-attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.graph.attributeEnd)
-literalAttr = attribute(true)
-attr = attribute(false)
-
-
+export attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.graph.attributeEnd)
+export literalAttr = attribute(true)
+export attr = attribute(false)
 export attributeToString = where {
   Damping(f) =>
     attr("damping", show(f))
@@ -380,10 +362,10 @@ export attributeToString = where {
     attr("fontcolor", show(s))
 
   Fontname(s) =>
-    attr("fontname", show(s))
+    attr("fontname", _String.doubleToSingleQuote(s))
 
   Fontnames(s) =>
-    attr("fontnames", show(s))
+    attr("fontnames", _String.doubleToSingleQuote(s))
 
   Fontpath(s) =>
     attr("fontpath", show(s))
@@ -624,15 +606,12 @@ export attributeToString = where {
   UnknownGraphAttribute =>
     `/* unknown graph attribute */`
 }
-
 renderAttributesWithConfig :: Config -> List GraphAttribute -> String
 export renderAttributesWithConfig = (config, x) => pipe(
   map(attributeToString),
   join(config.expressions.graph.attributes),
 )(x)
-
 export renderAttributes = renderAttributesWithConfig(DEFAULT_CONFIG)
-
 export type Graph = GlobalGraph(List GraphAttribute)
 export toString = where {
   GlobalGraph(attrs) =>
