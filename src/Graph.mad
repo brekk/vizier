@@ -1,6 +1,9 @@
 import type { Config } from "@/Config"
 import type { Rect } from "@/Geometry"
 
+import Fn from "Function"
+import { Just, Nothing } from "Maybe"
+import {} from "Scan"
 import { join } from "String"
 
 import { DEFAULT_CONFIG } from "@/Config"
@@ -18,6 +21,13 @@ export type Layout
   | LayoutTwopi
   | LayoutOsage
   | LayoutPatchwork
+instance Scan Layout {
+  scan = (w) => pipe(
+    stringToLayout,
+    // stringToLayout is permissive so we can give this additional safety
+    Fn.ifElse(Fn.equals(LayoutDot), (_) => w == "dot" ? Just(LayoutDot) : Nothing, Just),
+  )(w)
+}
 layoutToString :: Layout -> String
 export layoutToString = where {
   LayoutDot =>

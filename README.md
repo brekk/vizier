@@ -1,3 +1,3 @@
 # vizier
 
-mad x graphviz
+madlib x graphviz
