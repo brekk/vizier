@@ -501,7 +501,7 @@ export attributeToString = where {
     attr("outputorder", outputModeToString(outputmode))
 
   Overlap(s) =>
-    attr("overlap", show(s))
+    attr("overlap", _String.doubleToSingleQuote(s))
 
   OverlapScaling(f) =>
     attr("overlapscaling", show(f))
