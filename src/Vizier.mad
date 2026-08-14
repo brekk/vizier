@@ -15,7 +15,7 @@ export type Vizier
 toString :: Vizier -> String
 export toString = where {
   Vizier(name, attrs, graphs, clusters, nodes, edges) =>
-    `digraph ${name} {${renderClusters(clusters)}
+    `digraph "${name}" {${renderClusters(clusters)}
     ${renderAttributes(attrs)}
     ${renderNodes(nodes)}
     ${renderEdges(edges)}

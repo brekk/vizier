@@ -12,9 +12,9 @@ import _String from "@/String"
 
 
 
-attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.node.attributeEnd)
-literalAttr = attribute(true)
-attr = attribute(false)
+export attribute = attributeWithDelimiter(DEFAULT_CONFIG.expressions.node.attributeEnd)
+export literalAttr = attribute(true)
+export attr = attribute(false)
 export type NodeStyle
   = NodeStyleDashed
   | NodeStyleDotted
