@@ -7,12 +7,11 @@ export alias Config = {
   },
   logging :: String,
 }
-
 DEFAULT_CONFIG :: Config
 export DEFAULT_CONFIG = {
   expressions: {
     cluster: { separator: "\n", attributes: "\n" },
-    graph: { separator: "\n", attributes: "\n", attributeEnd: ";" },
+    graph: { separator: "\n", attributes: ", ", attributeEnd: ";" },
     node: { attributeEnd: ",", attributeJoin: "\n", join: "\n" },
     edge: { link: " -> ", join: "\n", attributeJoin: "\n" },
   },

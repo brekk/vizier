@@ -7,7 +7,6 @@ import Party from "PartyBus"
 VIZ = "vizier"
 vvv = Party.tagWithScope(VIZ)
 scoped = (x) => vvv([x])
-
 export TAGS = {
   init: scoped("init"),
   info: scoped("info"),
@@ -17,7 +16,6 @@ export TAGS = {
   renderEdge: vvv(["render", "edge"]),
   renderGraph: vvv(["render", "graph"]),
 }
-
 export log = {
   render: Party.env(TAGS.render),
   renderCluster: Party.env(TAGS.renderCluster),

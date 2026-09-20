@@ -3,6 +3,9 @@ import type { Edge } from "@/Edge"
 import type { Graph, GraphAttribute } from "@/Graph"
 import type { Node } from "@/Node"
 
+import Fn from "Function"
+import List from "List"
+
 import { renderClusters } from "@/Cluster"
 import { renderEdges } from "@/Edge"
 import { renderAttributes } from "@/Graph"
@@ -12,12 +15,77 @@ import { renderNodes } from "@/Node"
 
 export type Vizier
   = Vizier(String, List GraphAttribute, List Graph, List Cluster, List Node, List Edge)
+export name = where {
+  Vizier(n, _, _, _, _, _) =>
+    n
+}
+export attributes = where {
+  Vizier(_, a, _, _, _, _) =>
+    a
+}
+export graphs = where {
+  Vizier(_, _, g, _, _, _) =>
+    g
+}
+export cluster = where {
+  Vizier(_, _, _, c, _, _) =>
+    c
+}
+export nodes = where {
+  Vizier(_, _, _, _, n, _) =>
+    n
+}
+export edges = where {
+  Vizier(_, _, _, _, _, e) =>
+    e
+}
+export changeName = (fn, x) => where(x) {
+  Vizier(n, a, g, c, _nodes, e) =>
+    Vizier(fn(n), a, g, c, _nodes, e)
+}
+export changeAttributes = (fn, x) => where(x) {
+  Vizier(n, a, g, c, _nodes, e) =>
+    Vizier(n, fn(a), g, c, _nodes, e)
+}
+export changeGraphs = (fn, x) => where(x) {
+  Vizier(n, a, g, c, _nodes, e) =>
+    Vizier(n, a, fn(g), c, _nodes, e)
+}
+export changeClusters = (fn, x) => where(x) {
+  Vizier(n, a, g, c, _nodes, e) =>
+    Vizier(n, a, g, fn(c), _nodes, e)
+}
+export changeNodes = (fn, x) => where(x) {
+  Vizier(n, a, g, c, _nodes, e) =>
+    Vizier(n, a, g, c, fn(_nodes), e)
+}
+export changeEdges = (fn, x) => where(x) {
+  Vizier(n, a, g, c, _nodes, e) =>
+    Vizier(n, a, g, c, _nodes, fn(e))
+}
+merge :: Vizier -> Vizier -> Vizier
+export merge = (x, y) => where(#[x, y]) {
+  #[Vizier(n, a, g, c, o, e), Vizier(n2, a2, g2, c2, o2, e2)] =>
+    Vizier(
+      n,
+      List.concat(a, a2),
+      List.concat(g, g2),
+      List.concat(c, c2),
+      List.concat(o, o2),
+      List.concat(e, e2),
+    )
+}
+mergeWithName :: String -> Vizier -> Vizier -> Vizier
+export mergeWithName = (n, x, y) => pipe(
+  merge(x),
+  changeName(Fn.always(n)),
+)(y)
 toString :: Vizier -> String
 export toString = where {
-  Vizier(name, attrs, graphs, clusters, nodes, edges) =>
-    `digraph "${name}" {${renderClusters(clusters)}
+  Vizier(n, attrs, _graphs, _clusters, _nodes, _edges) =>
+    `digraph "${n}" {${renderClusters(_clusters)}
     ${renderAttributes(attrs)}
-    ${renderNodes(nodes)}
-    ${renderEdges(edges)}
+    ${renderNodes(_nodes)}
+    ${renderEdges(_edges)}
 }`
 }
